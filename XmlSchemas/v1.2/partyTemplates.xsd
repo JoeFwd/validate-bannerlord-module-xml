@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="partyTemplates" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+	<xs:element name="partyTemplates" msdata:IsDataSet="true">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="MBPartyTemplate" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:all>
+							<xs:element name="stacks">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="PartyTemplateStack" minOccurs="0" maxOccurs="unbounded">
+											<xs:complexType>
+												<xs:attribute name="min_value" type="xs:unsignedInt" use="required" />
+												<xs:attribute name="max_value" type="xs:unsignedInt" use="required" />
+												<xs:attribute name="troop" use="required">
+													<xs:simpleType>
+														<xs:restriction base="xs:string">
+														  <xs:pattern value="NPCCharacter\..+"/>
+														</xs:restriction>
+													 </xs:simpleType>
+												</xs:attribute>
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:all>
+						<xs:attribute name="id" type="xs:string" use="required" />
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

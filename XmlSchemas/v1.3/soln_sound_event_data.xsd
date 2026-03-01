@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" id="sound_event_data" elementFormDefault="qualified">
+  <xs:element name="base">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="event" minOccurs="0" maxOccurs="unbounded">
+          <xs:complexType>
+            <xs:attribute name="guid" type="xs:string" use="required"/>
+            <xs:attribute name="path" type="xs:string" use="optional"/>
+            <xs:attribute name="length" type="xs:integer" use="optional"/>
+            <xs:attribute name="max_distance" type="xs:integer" use="optional"/>
+            <xs:attribute name="priority_multiplier" type="xs:integer" use="optional"/>
+            <xs:attribute name="bassgid" type="xs:integer" use="optional"/>
+            <xs:attribute name="parameter_indices" type="xs:string" use="optional"/>
+            <xs:attribute name="send_is_player" type="xs:boolean" use="optional"/>
+            <xs:attribute name="send_occlusion" type="xs:boolean" use="optional"/>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+
+    <!-- guid attribute is unique for action_set -->
+    <xs:unique name="event_unique_attribute">
+      <xs:selector xpath="event"/>
+      <xs:field xpath="@guid"/>
+    </xs:unique>
+
+  </xs:element>
+</xs:schema>

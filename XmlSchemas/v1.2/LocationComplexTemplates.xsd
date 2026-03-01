@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="LocationComplexTemplates">
+    <xs:complexType>
+		<xs:sequence>
+        <xs:element name="LocationComplexTemplate" maxOccurs="unbounded">
+          <xs:complexType>
+			  <xs:sequence>
+              <xs:element name="Location" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:attribute name="id" type="xs:string" use="required" />
+                  <xs:attribute name="name" type="xs:string" use="required" />
+                  <xs:attribute name="scene_name" type="xs:string" use="optional" />
+                  <xs:attribute name="scene_name_1" type="xs:string" use="optional" />
+                  <xs:attribute name="scene_name_2" type="xs:string" use="optional" />
+                  <xs:attribute name="scene_name_3" type="xs:string" use="optional" />
+                  <xs:attribute name="indoor" type="xs:boolean" use="required" />
+                  <xs:attribute name="can_be_reserved" type="xs:boolean" use="optional" />
+                  <xs:attribute name="max_prosperity" type="xs:decimal" use="required" />
+                  <xs:attribute name="ai_can_enter" type="xs:string" use="required" />
+                  <xs:attribute name="ai_can_exit" type="xs:string" use="required" />
+                  <xs:attribute name="player_can_enter" type="xs:string" use="required" />
+                  <xs:attribute name="player_can_see" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="Passages">
+                <xs:complexType>
+					<xs:sequence>
+                    <xs:element name="Passage" minOccurs="0" maxOccurs="unbounded">
+                      <xs:complexType>
+                        <xs:attribute name="location_1" type="xs:string" use="required" />
+                        <xs:attribute name="location_2" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+            <xs:attribute name="id" type="xs:string" use="required" />
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

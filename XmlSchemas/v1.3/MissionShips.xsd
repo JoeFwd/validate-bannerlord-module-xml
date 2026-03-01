@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="MissionShips"
+  xmlns=""
+  xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+  <xs:simpleType name="indexType">
+    <xs:restriction base="xs:int">
+      <xs:minInclusive value="0"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="positiveIntType">
+    <xs:restriction base="xs:int">
+      <xs:minExclusive value="0"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="positiveFloatType">
+    <xs:restriction base="xs:float">
+      <xs:minExclusive value="0.0"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="positiveHalfAngleType">
+    <xs:restriction base="xs:float">
+      <xs:minInclusive value="0.0"/>
+      <xs:maxInclusive value="180.0"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="positiveQuarterAngleType">
+    <xs:restriction base="xs:float">
+      <xs:minInclusive value="0.0"/>
+      <xs:maxInclusive value="90.0"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="percentageType">
+    <xs:restriction base="xs:float">
+      <xs:minInclusive value="0.0"/>
+      <xs:maxInclusive value="1.0"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="sailType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="square"/>
+      <xs:enumeration value="lateen"/>
+      <!-- Add other sail types as needed -->
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="vectorType">
+    <xs:attribute name="x" type="xs:float" use="required"/>
+    <xs:attribute name="y" type="xs:float"/>
+    <xs:attribute name="z" type="xs:float"/>
+  </xs:complexType>
+  <xs:complexType name="positiveVectorType">
+    <xs:attribute name="x" type="positiveFloatType" use="required"/>
+    <xs:attribute name="y" type="positiveFloatType"/>
+    <xs:attribute name="z" type="positiveFloatType"/>
+  </xs:complexType>
+  <xs:complexType name="dimensionType">
+    <xs:attribute name="width" type="positiveFloatType" use="required"/>
+    <xs:attribute name="length" type="positiveFloatType"/>
+    <xs:attribute name="height" type="positiveFloatType"/>
+  </xs:complexType>
+  <xs:element name="MissionShips" msdata:IsDataSet="true">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="MissionShip">
+          <xs:complexType>
+            <xs:all>
+              <!-- Defines deployment area of the ship used for deployment planning on scene's spawn path-->
+              <xs:element name="deployment_area" type="dimensionType" minOccurs="1">
+                <xs:annotation>
+                  <xs:appinfo>
+                    <appSpecificNote>AlwaysPreferMerge</appSpecificNote>
+                  </xs:appinfo>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="sails" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                  <xs:appinfo>
+                    <appSpecificNote>AlwaysPreferMerge</appSpecificNote>
+                  </xs:appinfo>
+                </xs:annotation>
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="sail" minOccurs="1" maxOccurs="unbounded">
+                      <xs:complexType>
+                        <!--Index of the sail. Should match the sail object's tag defined in the ship's prefab-->
+                        <xs:attribute name="index" type="indexType" use="required"/>
+                        <!--Type of the sail (square, lateen etc.)-->
+                        <xs:attribute name="type" type="sailType" use="required"/>
+                        <!-- Ship's sail lift coefficient. Affects how much the sail lift force is scaled when the sail direction matches the wind direction -->
+                        <xs:attribute name="force_multiplier" type="positiveFloatType" use="optional"/>
+                        <!-- Sail's left (counter-clockwise) rotation limit in range [0,180] (degrees). Defines how much the sail can rotate counter-clockwise along ship's up axis-->
+                        <xs:attribute name="left_rotation_limit" type="positiveHalfAngleType" use="required"/>
+                        <!-- Sail's right (clockwise) rotation limit in range [0,180] (degrees). Defines how much the sail can rotate clockwise along ship's up axis-->
+                        <xs:attribute name="right_rotation_limit" type="positiveHalfAngleType" use="required"/>
+                        <!-- Defines how fast the sail's can rotate (degrees/second)-->
+                        <xs:attribute name="rotation_rate" type="positiveHalfAngleType" use="required"/>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+                <!-- index attribute is unique for Sail -->
+                <xs:unique name="sail_unique_attribute">
+                  <xs:selector xpath="sail"/>
+                  <xs:field xpath="@index"/>
+                </xs:unique>
+              </xs:element>
+              <!-- Defines where the rudder is attached to the ship. If not defined this is read from ship's prefab -->
+              <xs:element name="rudder_stock_position" type="vectorType" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                  <xs:appinfo>
+                    <appSpecificNote>AlwaysPreferMerge</appSpecificNote>
+                  </xs:appinfo>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="linear_friction_multiplier" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                  <xs:appinfo>
+                    <appSpecificNote>AlwaysPreferMerge</appSpecificNote>
+                  </xs:appinfo>
+                </xs:annotation>
+                <xs:complexType>
+                  <xs:attribute name="side" type="positiveFloatType" use="required"/>
+                  <xs:attribute name="forward" type="positiveFloatType" use="required"/>
+                  <xs:attribute name="backward" type="positiveFloatType" use="required"/>
+                  <xs:attribute name="up" type="positiveFloatType" use="required"/>
+                  <xs:attribute name="down" type="positiveFloatType" use="required"/>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="angular_friction_multiplier" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                  <xs:appinfo>
+                    <appSpecificNote>AlwaysPreferMerge</appSpecificNote>
+                  </xs:appinfo>
+                </xs:annotation>
+			    <xs:complexType>
+                      <xs:attribute name="pitch" type="positiveFloatType" use="required"/>
+                      <xs:attribute name="roll" type="positiveFloatType" use="required"/>
+                      <xs:attribute name="yaw" type="positiveFloatType" use="required"/>
+			    </xs:complexType>
+              </xs:element>
+			  <xs:element name="moment_of_inertia_multiplier" type="positiveVectorType" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                  <xs:appinfo>
+                    <appSpecificNote>AlwaysPreferMerge</appSpecificNote>
+                  </xs:appinfo>
+                </xs:annotation>
+              </xs:element>
+				<xs:element name="torque_multiplier_of_vertical_buoyant_forces" type="positiveVectorType" minOccurs="0" maxOccurs="1">
+				    <xs:annotation>
+					    <xs:appinfo>
+						    <appSpecificNote>AlwaysPreferMerge</appSpecificNote>
+					    </xs:appinfo>
+				    </xs:annotation>
+			    </xs:element>
+            </xs:all>
+            <xs:attribute name="id" type="xs:string" use="required"/>
+            <xs:attribute name="prefab" type="xs:string" use="required"/>
+            <!-- Ship's mass (kilogram). If not defined then this is read from ship's prefab -->
+            <xs:attribute name="mass" type="positiveFloatType" use="required"/>
+            <!-- Used to alter the water line offset of the ship. Controls how much of the ship will be under water when the ship is at rest-->
+            <xs:attribute name="floating_force_multiplier" type="positiveFloatType" use="required"/>
+            <!-- Used to alter the water line offset of the ship. Controls how much of the ship will be under water when the ship is damaged-->
+            <xs:attribute name="maximum_submerged_volume_ratio" type="percentageType" use="required"/>
+            <!-- Defines the maximum shift amount of the ship's center of lateral drag with respect to it's center of mass (in meters)-->
+            <xs:attribute name="lateral_drag_shift_max" type="positiveFloatType" use="optional"/>
+            <!-- Defines the critical angle of attack for lateral drag shift (in degrees).
+							 When the angle of attack of the ship is greater than this value lateral drag shift is maximized-->
+            <xs:attribute name="lateral_drag_shift_critical_angle" type="positiveQuarterAngleType" use="optional"/>
+            <!-- Count of oars on the ship. Must match the ship's prefab oars-->
+            <xs:attribute name="oar_count" type="positiveIntType" use="required"/>
+            <!-- Rudder's blade length (meters)-->
+            <xs:attribute name="rudder_blade_length" type="positiveFloatType" use="required"/>
+            <!-- Rudder's blade height (meters)-->
+            <xs:attribute name="rudder_blade_height" type="positiveFloatType" use="required"/>
+            <!-- Rudder's deflection coefficient. Scales the deflection force applied by the rudder -->
+            <xs:attribute name="rudder_deflection_coef" type="positiveFloatType" use="required"/>
+            <!-- Rudder's maximum rotation angle in range [-180,180] (degrees). Defines how much the rudder can rotate along up axis w.r.t their ship's backward direction.-->
+            <xs:attribute name="rudder_rotation_max" type="positiveHalfAngleType" use="required"/>
+            <!-- Rudder's maximum rotation rate in range [-180,180] (degrees/second). Defines maximum rotation rate of the rudder when it is not deflected.-->
+            <xs:attribute name="rudder_rotation_rate" type="positiveHalfAngleType" use="required"/>
+            <!-- Defines rudder's maximum applicable force (Newton). Controls how much deflection force rudder can resist and how fast it can turn-->
+            <xs:attribute name="rudder_force_max" type="positiveFloatType" use="required"/>
+            <!-- Reference maximum linear speed of the ship (meter/second) along it's forward axis-->
+            <xs:attribute name="max_linear_speed" type="positiveFloatType" use="required"/>
+            <!-- Reference maximum linear acceleration of the ship (meter/second^2) along its forward axis-->
+            <xs:attribute name="max_linear_acceleration" type="positiveFloatType" use="required"/>
+            <!-- Reference maximum angular speed (degree/second) of the ship around its up axis.-->
+            <xs:attribute name="max_angular_speed" type="positiveHalfAngleType" use="required"/>
+            <!-- Reference maximum angular acceleration (degree/second^2) of the ship around its up axis.-->
+            <xs:attribute name="max_angular_acceleration" type="positiveHalfAngleType" use="required"/>
+			<xs:attribute name="bow_angle_limit_from_centerline" type="positiveFloatType" use="required"/>
+            <xs:attribute name="partial_hit_points_ratio" type="percentageType" use="required"/>
+            <!-- Waves apply torque on ships, which may make turning more difficult.
+                        By lowering this value, ships may become more maneuverable on waves. -->
+            <xs:attribute name="torque_multiplier_of_lateral_buoyant_forces" type="percentageType" use="optional"/>
+            <xs:attribute name="ship_physics_reference_id" type="xs:string" use="required"/>
+
+            <!-- This value corresponds to the tip speed of those oars in meters per second.
+                You can use this value to approximately set the ship's oar top speed (ship top speed without using sails).
+                While the actual oar top speed will be roughly similar to the oar tip speed, water friction will introduce some variations. -->
+            <xs:attribute name="oars_tip_speed" type="positiveFloatType" use="required"/>
+
+            <!-- Force multiplier to oarsmen. With this value you can roughly arrange the oar acceleration of the ship. Will not contribute to the oar top speed much.-->
+            <xs:attribute name="oarsmen_force_multiplier" type="positiveFloatType" use="optional"/>
+            <xs:attribute name="oar_friction_multiplier" type="positiveFloatType" use="optional"/>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <!-- id attribute is unique for MissionShip -->
+    <xs:unique name="MissionShip_unique_attribute">
+      <xs:selector xpath="MissionShip"/>
+      <xs:field xpath="@id"/>
+    </xs:unique>
+  </xs:element>
+</xs:schema>

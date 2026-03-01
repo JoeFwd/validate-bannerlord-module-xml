@@ -1,0 +1,212 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" id="monster_usage_sets" elementFormDefault="qualified">
+  <xs:element name="monster_usage_sets">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="monster_usage_set" minOccurs="0" maxOccurs="unbounded">
+          <xs:complexType>
+            <xs:all>
+              <xs:element name="monster_usage_strikes" minOccurs="0">
+                <xs:annotation>
+                  <xs:appinfo>
+                    <appSpecificNote>AlwaysPreferMerge</appSpecificNote>
+                  </xs:appinfo>
+                </xs:annotation>
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="monster_usage_strike" minOccurs="0" maxOccurs="unbounded">
+                      <xs:complexType>
+                        <xs:attribute name="is_heavy" type="xs:boolean" use="optional"/>
+                        <xs:attribute name="is_left_stance" type="xs:boolean" use="optional"/>
+                        <xs:attribute name="direction" type="xs:string" use="optional"/>
+                        <xs:attribute name="body_part" type="xs:string" use="optional"/>
+                        <xs:attribute name="impact" type="xs:integer" use="optional"/>
+                        <xs:attribute name="action" type="xs:string" use="required"/>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+                <!-- action attribute is unique for monster_usage_strike -->
+                <xs:unique name="monster_usage_strike_unique_attribute">
+                  <xs:selector xpath="monster_usage_strike"/>
+                  <xs:field xpath="@action"/>
+                </xs:unique>
+              </xs:element>
+              <xs:element name="monster_usage_jumps" minOccurs="0">
+                <xs:annotation>
+                  <xs:appinfo>
+                    <appSpecificNote>AlwaysPreferMerge</appSpecificNote>
+                  </xs:appinfo>
+                </xs:annotation>
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="monster_usage_jump" minOccurs="0" maxOccurs="unbounded">
+                      <xs:complexType>
+                        <xs:attribute name="is_left_stance" type="xs:boolean" use="optional"/>
+                        <xs:attribute name="jump_state" type="xs:string" use="optional"/>
+                        <xs:attribute name="body_part" type="xs:string" use="optional"/>
+                        <xs:attribute name="action" type="xs:string" use="required"/>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+                <!-- action attribute is unique for monster_usage_jump -->
+                <xs:unique name="monster_usage_jump_unique_attribute">
+                  <xs:selector xpath="monster_usage_jump"/>
+                  <xs:field xpath="@action"/>
+                </xs:unique>
+              </xs:element>
+              <xs:element name="monster_usage_falls" minOccurs="0">
+                <xs:annotation>
+                  <xs:appinfo>
+                    <appSpecificNote>AlwaysPreferMerge</appSpecificNote>
+                  </xs:appinfo>
+                </xs:annotation>
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="monster_usage_fall" minOccurs="0" maxOccurs="unbounded">
+                      <xs:complexType>
+                        <xs:attribute name="mount_id" type="xs:string" use="optional"/>
+                        <xs:attribute name="is_heavy" type="xs:boolean" use="optional"/>
+                        <xs:attribute name="is_left_stance" type="xs:boolean" use="optional"/>
+                        <xs:attribute name="direction" type="xs:string" use="optional"/>
+                        <xs:attribute name="body_part" type="xs:string" use="optional"/>
+                        <xs:attribute name="death_type" type="xs:string" use="optional"/>
+                        <xs:attribute name="action" type="xs:string" use="required"/>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+                <!-- action attribute is unique for monster_usage_fall -->
+                <xs:unique name="monster_usage_fall_unique_attribute">
+                  <xs:selector xpath="monster_usage_fall"/>
+                  <xs:field xpath="@action"/>
+                </xs:unique>
+              </xs:element>
+              <xs:element name="monster_usage_mountings" minOccurs="0">
+                <xs:annotation>
+                  <xs:appinfo>
+                    <appSpecificNote>AlwaysPreferMerge</appSpecificNote>
+                  </xs:appinfo>
+                </xs:annotation>
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="monster_usage_mounting" minOccurs="0" maxOccurs="unbounded">
+                      <xs:complexType>
+                        <xs:attribute name="mount_id" type="xs:string" use="optional"/>
+                        <xs:attribute name="is_mounted" type="xs:boolean" use="optional"/>
+                        <xs:attribute name="is_fast" type="xs:boolean" use="optional"/>
+                        <xs:attribute name="direction" type="xs:string" use="optional"/>
+                        <xs:attribute name="action" type="xs:string" use="required"/>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+                <!-- action attribute is unique for monster_usage_mounting -->
+                <xs:unique name="monster_usage_mounting_unique_attribute">
+                  <xs:selector xpath="monster_usage_mounting"/>
+                  <xs:field xpath="@action"/>
+                </xs:unique>
+              </xs:element>
+              <xs:element name="monster_usage_upper_body_movements" minOccurs="0">
+                <xs:annotation>
+                  <xs:appinfo>
+                    <appSpecificNote>AlwaysPreferMerge</appSpecificNote>
+                  </xs:appinfo>
+                </xs:annotation>
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="monster_usage_upper_body_movement" minOccurs="0" maxOccurs="unbounded">
+                      <xs:complexType>
+                        <xs:attribute name="pace" type="xs:integer" use="optional"/>
+                        <xs:attribute name="direction" type="xs:string" use="optional"/>
+                        <xs:attribute name="turn_direction" type="xs:string" use="optional"/>
+                        <xs:attribute name="action" type="xs:string" use="required"/>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+                <!-- action attribute is unique for monster_usage_upper_body_movement -->
+                <xs:unique name="monster_usage_upper_body_movement_unique_attribute">
+                  <xs:selector xpath="monster_usage_upper_body_movement"/>
+                  <xs:field xpath="@action"/>
+                </xs:unique>
+              </xs:element>
+              <xs:element name="monster_usage_movements" minOccurs="0">
+                <xs:annotation>
+                  <xs:appinfo>
+                    <appSpecificNote>AlwaysPreferMerge</appSpecificNote>
+                  </xs:appinfo>
+                </xs:annotation>
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="monster_usage_movement" minOccurs="0" maxOccurs="unbounded">
+                      <xs:complexType>
+                        <xs:attribute name="is_left_foot" type="xs:boolean" use="optional"/>
+                        <xs:attribute name="pace" type="xs:integer" use="optional"/>
+                        <xs:attribute name="direction" type="xs:string" use="optional"/>
+                        <xs:attribute name="turn_direction" type="xs:string" use="optional"/>
+                        <xs:attribute name="action" type="xs:string" use="required"/>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+                <!-- action attribute is unique for monster_usage_movement -->
+                <xs:unique name="monster_usage_movement_unique_attribute">
+                  <xs:selector xpath="monster_usage_movement"/>
+                  <xs:field xpath="@action"/>
+                </xs:unique>
+              </xs:element>
+              <xs:element name="monster_usage_movement_adders" minOccurs="0">
+                <xs:annotation>
+                  <xs:appinfo>
+                    <appSpecificNote>AlwaysPreferMerge</appSpecificNote>
+                  </xs:appinfo>
+                </xs:annotation>
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="monster_usage_movement_adder" minOccurs="0" maxOccurs="unbounded">
+                      <xs:complexType>
+                        <xs:attribute name="is_left_foot" type="xs:boolean" use="optional"/>
+                        <xs:attribute name="pace" type="xs:integer" use="optional"/>
+                        <xs:attribute name="direction" type="xs:string" use="optional"/>
+                        <xs:attribute name="turn_direction" type="xs:string" use="optional"/>
+                        <xs:attribute name="action" type="xs:string" use="required"/>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+                <!-- action attribute is unique for monster_usage_movement_adder -->
+                <xs:unique name="monster_usage_movement_adder_unique_attribute">
+                  <xs:selector xpath="monster_usage_movement_adder"/>
+                  <xs:field xpath="@action"/>
+                </xs:unique>
+              </xs:element>
+            </xs:all>
+            <xs:attribute name="id" type="xs:string" use="required"/>
+            <xs:attribute name="ladder_climb_action" type="xs:string" use="optional"/>
+            <xs:attribute name="strike_ladder_action" type="xs:string" use="optional"/>
+            <xs:attribute name="strike_swim_action" type="xs:string" use="optional"/>
+            <xs:attribute name="rear_action" type="xs:string" use="optional"/>
+            <xs:attribute name="rear_damaged_action" type="xs:string" use="optional"/>
+            <xs:attribute name="dash_action" type="xs:string" use="optional"/>
+            <xs:attribute name="kick_action" type="xs:string" use="optional"/>
+            <xs:attribute name="fast_quick_stop_action" type="xs:string" use="optional"/>
+            <xs:attribute name="gallop_acceleration_head_action" type="xs:string" use="optional"/>
+            <xs:attribute name="quick_stop_action" type="xs:string" use="optional"/>
+            <xs:attribute name="hit_object_action" type="xs:string" use="optional"/>
+            <xs:attribute name="hit_object_falling_action" type="xs:string" use="optional"/>
+            <xs:attribute name="jump_start_action" type="xs:string" use="optional"/>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+
+    <!-- id attribute is unique for monster_usage_set -->
+    <xs:unique name="monster_usage_set_unique_attribute">
+      <xs:selector xpath="monster_usage_set"/>
+      <xs:field xpath="@id"/>
+    </xs:unique>
+
+  </xs:element>
+</xs:schema>

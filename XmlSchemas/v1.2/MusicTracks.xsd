@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="MusicTracks" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="MusicTracks">
+    <xs:complexType>
+		<xs:sequence>
+        <xs:element maxOccurs="unbounded" name="MusicTrack">
+          <xs:complexType>
+            <xs:all>
+              <xs:element name="Instruments">
+                <xs:complexType>
+					<xs:sequence>
+                    <xs:element maxOccurs="unbounded" name="Instrument">
+                      <xs:complexType>
+                        <xs:attribute name="id" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:all>
+            <xs:attribute name="id" type="xs:string" use="required" />
+            <xs:attribute name="event_id" type="xs:string" use="required" />
+            <xs:attribute name="culture" type="xs:string" use="required" />
+            <xs:attribute name="location" type="xs:string" use="required" />
+            <xs:attribute name="tempo" type="xs:unsignedByte" use="required" />
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

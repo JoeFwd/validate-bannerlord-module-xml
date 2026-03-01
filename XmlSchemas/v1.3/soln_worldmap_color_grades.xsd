@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" id="worldmap_color_grades" elementFormDefault="qualified">
+  <xs:element name="worldmap_color_grades">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="color_grade_grid" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <appSpecificNote>AlwaysPreferMerge</appSpecificNote>
+            </xs:appinfo>
+          </xs:annotation>
+          <xs:complexType>
+            <xs:attribute name="name" type="xs:string" use="required"/>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="color_grade_default" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <appSpecificNote>AlwaysPreferMerge</appSpecificNote>
+            </xs:appinfo>
+          </xs:annotation>
+          <xs:complexType>
+            <xs:attribute name="name" type="xs:string" use="required"/>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="color_grade_night" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <appSpecificNote>AlwaysPreferMerge</appSpecificNote>
+            </xs:appinfo>
+          </xs:annotation>
+          <xs:complexType>
+            <xs:attribute name="name" type="xs:string" use="required"/>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="color_grade" minOccurs="0" maxOccurs="unbounded">
+          <xs:complexType>
+            <xs:attribute name="name" type="xs:string" use="required"/>
+            <xs:attribute name="value" type="xs:int" use="required"/>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+
+    <!-- name attribute is unique for color_grade -->
+    <xs:unique name="color_grade_unique_attribute">
+      <xs:selector xpath="color_grade"/>
+      <xs:field xpath="@name"/>
+    </xs:unique>
+
+  </xs:element>
+</xs:schema>

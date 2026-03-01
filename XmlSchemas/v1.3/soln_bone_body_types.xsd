@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" id="bone_body_types" elementFormDefault="qualified">
+  <xs:element name="bone_body_types">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="bone_body_type" minOccurs="0" maxOccurs="unbounded">
+          <xs:complexType>
+            <xs:attribute name="type" type="xs:string" use="required"/>
+            <xs:attribute name="priority" type="xs:string" use="optional"/>
+            <xs:attribute name="active_sweep" type="xs:boolean" use="optional"/>
+            <xs:attribute name="use_smaller_radius_mult_while_holding_shield" type="xs:boolean" use="optional"/>
+            <xs:attribute name="do_not_scale_according_to_agent_scale" type="xs:boolean" use="optional"/>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+
+    <!-- type attribute is unique for bone_body_type -->
+    <xs:unique name="bone_body_type_unique_attribute">
+      <xs:selector xpath="bone_body_type"/>
+      <xs:field xpath="@type"/>
+    </xs:unique>
+
+  </xs:element>
+</xs:schema>

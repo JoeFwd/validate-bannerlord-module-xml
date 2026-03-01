@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="EquipmentRosters" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+  <xs:element name="EquipmentRosters">
+    <xs:complexType>
+		<xs:sequence>
+        <xs:element name="EquipmentRoster" minOccurs="0" maxOccurs="unbounded">
+          <xs:complexType>
+			<xs:sequence>
+              <xs:element name="EquipmentSet" minOccurs="1" maxOccurs="unbounded">
+                <xs:complexType>
+					<xs:sequence>
+                    <xs:element name="Equipment" minOccurs="1" maxOccurs="unbounded">
+                      <xs:complexType>
+                        <xs:simpleContent>
+                          <xs:extension base="xs:string">
+                            <xs:attribute type="xs:string" name="slot" use="required"/>
+                            <xs:attribute type="xs:string" name="id" use="required"/>
+                          </xs:extension>
+                        </xs:simpleContent>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute type="xs:string" name="civilian" use="optional"/>
+                </xs:complexType>
+              </xs:element>
+			<xs:element name="Flags" minOccurs="0" maxOccurs="1">
+			  <xs:complexType>
+					<xs:attribute name="IsWandererEquipment" type="xs:string" use="optional" />                               
+					<xs:attribute name="IsGentryEquipment" type="xs:string" use="optional" />
+					<xs:attribute name="IsRebelHeroEquipment" type="xs:string" use="optional" />      
+					<xs:attribute name="IsNoncombatantTemplate" type="xs:string" use="optional" />  
+					<xs:attribute name="IsCombatantTemplate" type="xs:string" use="optional" />     
+					<xs:attribute name="IsCivilianTemplate" type="xs:string" use="optional" />      
+					<xs:attribute name="IsNobleTemplate" type="xs:string" use="optional" />         
+					<xs:attribute name="IsFemaleTemplate" type="xs:string" use="optional" />        
+					<xs:attribute name="IsMediumTemplate" type="xs:string" use="optional" />        
+					<xs:attribute name="IsHeavyTemplate" type="xs:string" use="optional" />         
+					<xs:attribute name="IsFlamboyantTemplate" type="xs:string" use="optional" />    
+					<xs:attribute name="IsStoicTemplate" type="xs:string" use="optional" />         
+					<xs:attribute name="IsNomadTemplate" type="xs:string" use="optional" />         
+					<xs:attribute name="IsWoodlandTemplate" type="xs:string" use="optional" />      
+			    <xs:attribute name="IsChildEquipmentTemplate" type="xs:string" use="optional" />         
+			    <xs:attribute name="IsTeenagerEquipmentTemplate" type="xs:string" use="optional" />         
+                </xs:complexType>
+			  </xs:element>
+			 </xs:sequence>
+            <xs:attribute type="xs:string" name="id" use="required"/>
+            <xs:attribute type="xs:string" name="culture" use="optional"/>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="Scales" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+  <xs:element name="Scales" msdata:IsDataSet="true">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" name="Scale">
+          <xs:complexType>
+            <xs:all>
+                <xs:element minOccurs="1" maxOccurs="1" name="BoneScales">
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element maxOccurs="unbounded" name="BoneScale">
+                        <xs:complexType>
+                          <xs:attribute name="bone_name" type="xs:string" use="required" />
+                          <xs:attribute name="scale" type="xs:string" use="required" />
+                        </xs:complexType>
+                      </xs:element>
+                    </xs:sequence>
+                  </xs:complexType>
+                </xs:element>
+            </xs:all>
+            <xs:attribute name="id" type="xs:string" use="required" />
+            <xs:attribute name="skeleton" type="xs:string" use="required" />
+            <xs:attribute name="mount_sit_bone_scale" type="xs:string" use="optional" />
+            <xs:attribute name="mount_radius_adder" type="xs:decimal" use="optional" />
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="Projects" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+  <xs:element name="Projects" msdata:IsDataSet="true">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="Project">
+          <xs:complexType>
+            <xs:attribute name="id" type="xs:string" use="required" />
+            <xs:attribute name="name" type="xs:string" use="required" />
+            <xs:attribute name="needed_work_days" type="xs:unsignedInt" use="required" />			
+            <xs:attribute name="is_center_building" type="xs:boolean" use="optional" />
+            <xs:attribute name="is_general_action" type="xs:boolean" use="optional" />
+			<xs:attribute name="converted_to" type="xs:string" use="optional" />
+            <xs:attribute name="on_condition" type="xs:string" use="optional" />
+            <xs:attribute name="on_project_start" type="xs:string" use="optional" />
+            <xs:attribute name="on_project_finish" type="xs:string" use="optional" />
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

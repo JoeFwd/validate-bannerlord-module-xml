@@ -1,0 +1,511 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<xs:schema xmlns=""
+  xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="Items">
+
+  <xs:simpleType name="positiveFloat">
+    <xs:restriction base="xs:float">
+      <xs:minExclusive value="0.0"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:element name="Items" msdata:IsDataSet="true">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="Item">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ItemComponent" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                  <xs:appinfo>
+                    <appSpecificNote>AlwaysPreferMerge</appSpecificNote>
+                  </xs:appinfo>
+                </xs:annotation>
+                <xs:complexType>
+                  <xs:choice>
+                    <xs:element name="MultiplayerPerk" minOccurs="0" maxOccurs="1">
+                      <xs:annotation>
+                        <xs:appinfo>
+                          <appSpecificNote>AlwaysPreferMerge</appSpecificNote>
+                        </xs:appinfo>
+                      </xs:annotation>
+                      <xs:complexType>
+                        <xs:all>
+                          <xs:element name="Description">
+                            <xs:annotation>
+                              <xs:appinfo>
+                                <appSpecificNote>AlwaysPreferMerge</appSpecificNote>
+                              </xs:appinfo>
+                            </xs:annotation>
+                            <xs:complexType>
+                              <xs:attribute name="value" type="xs:string" use="optional"/>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element name="ExtraGold">
+                            <xs:annotation>
+                              <xs:appinfo>
+                                <appSpecificNote>AlwaysPreferMerge</appSpecificNote>
+                              </xs:appinfo>
+                            </xs:annotation>
+                            <xs:complexType>
+                              <xs:attribute name="value" type="xs:string" use="required"/>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element name="DrivenProperty">
+                            <xs:annotation>
+                              <xs:appinfo>
+                                <appSpecificNote>AlwaysPreferMerge</appSpecificNote>
+                              </xs:appinfo>
+                            </xs:annotation>
+                            <xs:complexType>
+                              <xs:attribute name="type" type="xs:string" use="required"/>
+                              <xs:attribute name="value" type="xs:string" use="required"/>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:all>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="Horse" minOccurs="0" maxOccurs="1">
+                      <xs:annotation>
+                        <xs:appinfo>
+                          <appSpecificNote>AlwaysPreferMerge</appSpecificNote>
+                        </xs:appinfo>
+                      </xs:annotation>
+                      <xs:complexType>
+                        <xs:all>
+                          <xs:element name="AdditionalMeshes" minOccurs="0">
+                            <xs:annotation>
+                              <xs:appinfo>
+                                <appSpecificNote>AlwaysPreferMerge</appSpecificNote>
+                              </xs:appinfo>
+                            </xs:annotation>
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="Mesh" minOccurs="0" maxOccurs="unbounded">
+                                  <xs:complexType>
+                                    <xs:attribute name="name" type="xs:string" use="required"/>
+                                    <xs:attribute name="affected_by_cover" type="xs:string" use="optional"/>
+                                  </xs:complexType>
+                                </xs:element>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element name="Materials" minOccurs="0">
+                            <xs:annotation>
+                              <xs:appinfo>
+                                <appSpecificNote>AlwaysPreferMerge</appSpecificNote>
+                              </xs:appinfo>
+                            </xs:annotation>
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="Material" minOccurs="0" maxOccurs="unbounded">
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element name="MeshMultipliers" minOccurs="0" maxOccurs="1">
+                                        <xs:annotation>
+                                          <xs:appinfo>
+                                            <appSpecificNote>AlwaysPreferMerge</appSpecificNote>
+                                          </xs:appinfo>
+                                        </xs:annotation>
+                                        <xs:complexType>
+                                          <xs:sequence>
+                                            <xs:element name="MeshMultiplier" minOccurs="0" maxOccurs="unbounded">
+                                              <xs:complexType>
+                                                <xs:attribute name="mesh_multiplier" type="xs:string" use="required"/>
+                                                <xs:attribute name="percentage" type="xs:string" use="required"/>
+                                              </xs:complexType>
+                                            </xs:element>
+                                          </xs:sequence>
+                                        </xs:complexType>
+                                      </xs:element>
+                                    </xs:sequence>
+                                    <xs:attribute name="name" type="xs:string" use="required"/>
+                                  </xs:complexType>
+                                </xs:element>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:all>
+                        <xs:attribute name="monster" type="xs:string" use="required"/>
+                        <xs:attribute name="mane_mesh" type="xs:string" use="optional"/>
+                        <xs:attribute name="mane_mesh_multiplier" type="xs:string" use="optional"/>
+                        <xs:attribute name="maneuver" type="xs:unsignedInt" use="required"/>
+                        <xs:attribute name="speed" type="xs:unsignedInt" use="required"/>
+                        <xs:attribute name="charge_damage" type="xs:unsignedInt" use="required"/>
+                        <xs:attribute name="extra_health" type="xs:int" use="optional"/>
+                        <xs:attribute name="body_length" type="xs:unsignedInt" use="required"/>
+                        <xs:attribute name="is_mountable" type="xs:string" use="optional"/>
+                        <xs:attribute name="is_pack_animal" type="xs:string" use="optional"/>
+                        <xs:attribute name="skeleton_scale" type="xs:string" use="optional"/>
+                        <xs:attribute name="modifier_group" type="xs:string" use="optional"/>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="Banner" minOccurs="0" maxOccurs="1">
+                      <xs:annotation>
+                        <xs:appinfo>
+                          <appSpecificNote>AlwaysPreferMerge</appSpecificNote>
+                        </xs:appinfo>
+                      </xs:annotation>
+                      <xs:complexType>
+                        <xs:all>
+                          <xs:element name="WeaponFlags" minOccurs="0">
+                            <xs:annotation>
+                              <xs:appinfo>
+                                <appSpecificNote>AlwaysPreferMerge</appSpecificNote>
+                              </xs:appinfo>
+                            </xs:annotation>
+                            <xs:complexType>
+                              <xs:attribute name="MeleeWeapon" type="xs:boolean" use="optional"/>
+                              <xs:attribute name="RangedWeapon" type="xs:boolean" use="optional"/>
+                              <xs:attribute name="FirearmAmmo" type="xs:boolean" use="optional"/>
+                              <xs:attribute name="NotUsableWithOneHand" type="xs:boolean" use="optional"/>
+                              <xs:attribute name="NotUsableWithTwoHand" type="xs:boolean" use="optional"/>
+                              <xs:attribute name="WideGrip" type="xs:boolean" use="optional"/>
+                              <xs:attribute name="AttachAmmoToVisual" type="xs:boolean" use="optional"/>
+                              <xs:attribute name="Consumable" type="xs:boolean" use="optional"/>
+                              <xs:attribute name="HasHitPoints" type="xs:boolean" use="optional"/>
+                              <xs:attribute name="HasString" type="xs:boolean" use="optional"/>
+                              <xs:attribute name="StringHeldByHand" type="xs:boolean" use="optional"/>
+                              <xs:attribute name="UnloadWhenSheathed" type="xs:boolean" use="optional"/>
+                              <xs:attribute name="AffectsArea" type="xs:boolean" use="optional"/>
+                              <xs:attribute name="AffectsAreaBig" type="xs:boolean" use="optional"/>
+                              <xs:attribute name="Burning" type="xs:boolean" use="optional"/>
+                              <xs:attribute name="BonusAgainstShield" type="xs:boolean" use="optional"/>
+                              <xs:attribute name="CanPenetrateShield" type="xs:boolean" use="optional"/>
+                              <xs:attribute name="CantReloadOnHorseback" type="xs:boolean" use="optional"/>
+                              <xs:attribute name="AutoReload" type="xs:boolean" use="optional"/>
+                              <xs:attribute name="CanKillEvenIfBlunt" type="xs:boolean" use="optional"/>
+                              <xs:attribute name="TwoHandIdleOnMount" type="xs:boolean" use="optional"/>
+                              <xs:attribute name="PenaltyWithShield" type="xs:boolean" use="optional"/>
+                              <xs:attribute name="CanDismount" type="xs:boolean" use="optional"/>
+                              <xs:attribute name="MissileWithPhysics" type="xs:boolean" use="optional"/>
+                              <xs:attribute name="MultiplePenetration" type="xs:boolean" use="optional"/>
+                              <xs:attribute name="CanKnockDown" type="xs:boolean" use="optional"/>
+                              <xs:attribute name="CanBlockRanged" type="xs:boolean" use="optional"/>
+                              <xs:attribute name="LeavesTrail" type="xs:boolean" use="optional"/>
+                              <xs:attribute name="UseHandAsThrowBase" type="xs:boolean" use="optional"/>
+                              <xs:attribute name="AmmoBreaksOnBounceBack" type="xs:boolean" use="optional"/>
+                              <xs:attribute name="AmmoCanBreakOnBounceBack" type="xs:boolean" use="optional"/>
+                              <xs:attribute name="AmmoSticksWhenShot" type="xs:boolean" use="optional"/>
+                              <xs:attribute name="CanBeUsedWhileCrouched" type="xs:boolean" use="optional"/>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:all>
+                        <xs:attribute name="banner_level" type="xs:int" use="required"/>
+                        <xs:attribute name="effect" type="xs:string" use="required"/>
+                        <xs:attribute name="weapon_class" type="xs:string" use="required"/>
+                        <xs:attribute name="ammo_class" type="xs:string" use="optional"/>
+                        <xs:attribute name="stack_amount" type="xs:unsignedShort" use="optional"/>
+                        <xs:attribute name="weapon_balance" type="xs:unsignedInt" use="optional"/>
+                        <xs:attribute name="thrust_speed" type="xs:unsignedInt" use="optional"/>
+                        <xs:attribute name="speed_rating" type="xs:unsignedInt" use="required"/>
+                        <xs:attribute name="item_usage" type="xs:string" use="required"/>
+                        <xs:attribute name="position" type="xs:string" use="optional"/>
+                        <xs:attribute name="rotation" type="xs:string" use="optional"/>
+                        <xs:attribute name="passby_sound_code" type="xs:string" use="optional"/>
+                        <xs:attribute name="flying_sound_code" type="xs:string" use="optional"/>
+                        <xs:attribute name="trail_particle_name" type="xs:string" use="optional"/>
+                        <xs:attribute name="weapon_length" type="xs:unsignedInt" use="optional"/>
+                        <xs:attribute name="shield_down_length" type="xs:unsignedInt" use="optional"/>
+                        <xs:attribute name="missile_speed" type="xs:unsignedInt" use="optional"/>
+                        <xs:attribute name="shield_width" type="xs:unsignedInt" use="optional"/>
+                        <xs:attribute name="ammo_limit" type="xs:unsignedShort" use="optional"/>
+                        <xs:attribute name="shield_up_length" type="xs:unsignedShort" use="optional"/>
+                        <xs:attribute name="swing_damage" type="xs:unsignedInt" use="optional"/>
+                        <xs:attribute name="swing_damage_type" type="xs:string" use="optional"/>
+                        <xs:attribute name="physics_material" type="xs:string" use="optional"/>
+                        <xs:attribute name="thrust_damage" type="xs:unsignedInt" use="optional"/>
+                        <xs:attribute name="thrust_damage_type" type="xs:string" use="optional"/>
+                        <xs:attribute name="accuracy" type="xs:unsignedInt" use="optional"/>
+                        <xs:attribute name="body_armor" type="xs:unsignedInt" use="optional"/>
+                        <xs:attribute name="sticking_position" type="xs:string" use="optional"/>
+                        <xs:attribute name="sticking_rotation" type="xs:string" use="optional"/>
+                        <xs:attribute name="hit_points" type="xs:unsignedShort" use="optional"/>
+                        <xs:attribute name="center_of_mass" type="xs:string" use="optional"/>
+                        <xs:attribute name="rotation_speed" type="xs:string" use="optional"/>
+                        <xs:attribute name="modifier_group" type="xs:string" use="optional"/>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="Trade" minOccurs="0" maxOccurs="1">
+                      <xs:annotation>
+                        <xs:appinfo>
+                          <appSpecificNote>AlwaysPreferMerge</appSpecificNote>
+                        </xs:appinfo>
+                      </xs:annotation>
+                      <xs:complexType>
+                        <xs:attribute name="morale_bonus" type="xs:int" use="optional"/>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="Armor" minOccurs="0" maxOccurs="1">
+                      <xs:annotation>
+                        <xs:appinfo>
+                          <appSpecificNote>AlwaysPreferMerge</appSpecificNote>
+                        </xs:appinfo>
+                      </xs:annotation>
+                      <xs:complexType>
+                        <xs:attribute name="body_armor" type="xs:unsignedInt" use="optional"/>
+                        <xs:attribute name="arm_armor" type="xs:unsignedInt" use="optional"/>
+                        <xs:attribute name="leg_armor" type="xs:unsignedInt" use="optional"/>
+                        <xs:attribute name="head_armor" type="xs:unsignedInt" use="optional"/>
+                        <xs:attribute name="maneuver_bonus" type="xs:int" use="optional"/>
+                        <xs:attribute name="speed_bonus" type="xs:int" use="optional"/>
+                        <xs:attribute name="charge_bonus" type="xs:int" use="optional"/>
+                        <xs:attribute name="covers_body" type="xs:boolean" use="optional"/>
+                        <xs:attribute name="material" type="xs:string" use="optional"/>
+                        <xs:attribute name="has_gender_variations" type="xs:boolean" use="optional"/>
+                        <xs:attribute name="hair_cover_type" type="xs:string" use="optional"/>
+                        <xs:attribute name="beard_cover_type" type="xs:string" use="optional"/>
+                        <xs:attribute name="mane_cover_type" type="xs:string" use="optional"/>
+                        <xs:attribute name="tail_cover_type" type="xs:string" use="optional"/>
+                        <xs:attribute name="body_deform_type" type="xs:string" use="optional"/>
+                        <xs:attribute name="covers_legs" type="xs:boolean" use="optional"/>
+                        <xs:attribute name="covers_head" type="xs:boolean" use="optional"/>
+                        <xs:attribute name="covers_hands" type="xs:boolean" use="optional"/>
+                        <xs:attribute name="family_type" type="xs:unsignedInt" use="optional"/>
+                        <xs:attribute name="body_mesh_type" type="xs:string" use="optional"/>
+                        <xs:attribute name="reins_mesh" type="xs:string" use="optional"/>
+                        <xs:attribute name="modifier_group" type="xs:string" use="optional"/>
+                        <xs:attribute name="material_type" type="xs:string" use="optional"/>
+                        <xs:attribute name="stealth_factor" use="optional"/>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="Weapon" minOccurs="0" maxOccurs="1">
+                      <xs:annotation>
+                        <xs:appinfo>
+                          <appSpecificNote>AlwaysPreferMerge</appSpecificNote>
+                        </xs:appinfo>
+                      </xs:annotation>
+                      <xs:complexType>
+                        <xs:all>
+                          <xs:element name="WeaponFlags" minOccurs="0">
+                            <xs:annotation>
+                              <xs:appinfo>
+                                <appSpecificNote>AlwaysPreferMerge</appSpecificNote>
+                              </xs:appinfo>
+                            </xs:annotation>
+                            <xs:complexType>
+                              <xs:attribute name="MeleeWeapon" type="xs:boolean" use="optional"/>
+                              <xs:attribute name="RangedWeapon" type="xs:boolean" use="optional"/>
+                              <xs:attribute name="FirearmAmmo" type="xs:boolean" use="optional"/>
+                              <xs:attribute name="NotUsableWithOneHand" type="xs:boolean" use="optional"/>
+                              <xs:attribute name="NotUsableWithTwoHand" type="xs:boolean" use="optional"/>
+                              <xs:attribute name="WideGrip" type="xs:boolean" use="optional"/>
+                              <xs:attribute name="AttachAmmoToVisual" type="xs:boolean" use="optional"/>
+                              <xs:attribute name="Consumable" type="xs:boolean" use="optional"/>
+                              <xs:attribute name="HasHitPoints" type="xs:boolean" use="optional"/>
+                              <xs:attribute name="HasString" type="xs:boolean" use="optional"/>
+                              <xs:attribute name="StringHeldByHand" type="xs:boolean" use="optional"/>
+                              <xs:attribute name="UnloadWhenSheathed" type="xs:boolean" use="optional"/>
+                              <xs:attribute name="AffectsArea" type="xs:boolean" use="optional"/>
+                              <xs:attribute name="AffectsAreaBig" type="xs:boolean" use="optional"/>
+                              <xs:attribute name="Burning" type="xs:boolean" use="optional"/>
+                              <xs:attribute name="BonusAgainstShield" type="xs:boolean" use="optional"/>
+                              <xs:attribute name="CanPenetrateShield" type="xs:boolean" use="optional"/>
+                              <xs:attribute name="CantReloadOnHorseback" type="xs:boolean" use="optional"/>
+                              <xs:attribute name="AutoReload" type="xs:boolean" use="optional"/>
+                              <xs:attribute name="CanKillEvenIfBlunt" type="xs:boolean" use="optional"/>
+                              <xs:attribute name="TwoHandIdleOnMount" type="xs:boolean" use="optional"/>
+                              <xs:attribute name="PenaltyWithShield" type="xs:boolean" use="optional"/>
+                              <xs:attribute name="CanDismount" type="xs:boolean" use="optional"/>
+                              <xs:attribute name="MissileWithPhysics" type="xs:boolean" use="optional"/>
+                              <xs:attribute name="MultiplePenetration" type="xs:boolean" use="optional"/>
+                              <xs:attribute name="CanKnockDown" type="xs:boolean" use="optional"/>
+                              <xs:attribute name="CanBlockRanged" type="xs:boolean" use="optional"/>
+                              <xs:attribute name="LeavesTrail" type="xs:boolean" use="optional"/>
+                              <xs:attribute name="UseHandAsThrowBase" type="xs:boolean" use="optional"/>
+                              <xs:attribute name="AmmoBreaksOnBounceBack" type="xs:boolean" use="optional"/>
+                              <xs:attribute name="AmmoCanBreakOnBounceBack" type="xs:boolean" use="optional"/>
+                              <xs:attribute name="AmmoSticksWhenShot" type="xs:boolean" use="optional"/>
+                              <xs:attribute name="CanBeUsedWhileCrouched" type="xs:boolean" use="optional"/>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:all>
+                        <xs:attribute name="weapon_class" type="xs:string" use="required"/>
+                        <xs:attribute name="ammo_class" type="xs:string" use="optional"/>
+                        <xs:attribute name="stack_amount" type="xs:unsignedShort" use="optional"/>
+                        <xs:attribute name="weapon_balance" type="xs:unsignedInt" use="optional"/>
+                        <xs:attribute name="thrust_speed" type="xs:unsignedInt" use="optional"/>
+                        <xs:attribute name="speed_rating" type="xs:unsignedInt" use="required"/>
+                        <xs:attribute name="item_usage" type="xs:string" use="required"/>
+                        <xs:attribute name="reload_phase_count" type="xs:unsignedShort" use="optional"/>
+                        <xs:attribute name="position" type="xs:string" use="optional"/>
+                        <xs:attribute name="rotation" type="xs:string" use="optional"/>
+                        <xs:attribute name="passby_sound_code" type="xs:string" use="optional"/>
+                        <xs:attribute name="flying_sound_code" type="xs:string" use="optional"/>
+                        <xs:attribute name="trail_particle_name" type="xs:string" use="optional"/>
+                        <xs:attribute name="weapon_length" type="xs:unsignedInt" use="optional"/>
+                        <xs:attribute name="shield_down_length" type="xs:unsignedInt" use="optional"/>
+                        <xs:attribute name="missile_speed" type="xs:unsignedInt" use="optional"/>
+                        <xs:attribute name="shield_width" type="xs:unsignedInt" use="optional"/>
+                        <xs:attribute name="ammo_limit" type="xs:unsignedShort" use="optional"/>
+                        <xs:attribute name="shield_up_length" type="xs:unsignedShort" use="optional"/>
+                        <xs:attribute name="swing_damage" type="xs:unsignedInt" use="optional"/>
+                        <xs:attribute name="swing_damage_type" type="xs:string" use="optional"/>
+                        <xs:attribute name="physics_material" type="xs:string" use="optional"/>
+                        <xs:attribute name="thrust_damage" type="xs:unsignedInt" use="optional"/>
+                        <xs:attribute name="thrust_damage_type" type="xs:string" use="optional"/>
+						<xs:attribute name="fire_damage" type="xs:unsignedInt" use="optional"/>
+                        <xs:attribute name="accuracy" type="xs:unsignedInt" use="optional"/>
+                        <xs:attribute name="body_armor" type="xs:unsignedInt" use="optional"/>
+                        <xs:attribute name="sticking_position" type="xs:string" use="optional"/>
+                        <xs:attribute name="sticking_rotation" type="xs:string" use="optional"/>
+                        <xs:attribute name="hit_points" type="xs:unsignedShort" use="optional"/>
+                        <xs:attribute name="center_of_mass" type="xs:string" use="optional"/>
+                        <xs:attribute name="rotation_speed" type="xs:string" use="optional"/>
+                        <xs:attribute name="modifier_group" type="xs:string" use="optional"/>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:choice>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="Flags" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                  <xs:appinfo>
+                    <appSpecificNote>AlwaysPreferMerge</appSpecificNote>
+                  </xs:appinfo>
+                </xs:annotation>
+                <xs:complexType>
+                  <xs:attribute name="ForceAttachOffHandPrimaryItemBone" type="xs:boolean" use="optional"/>
+                  <xs:attribute name="ForceAttachOffHandSecondaryItemBone" type="xs:boolean" use="optional"/>
+                  <xs:attribute name="NotUsableByFemale" type="xs:boolean" use="optional"/>
+                  <xs:attribute name="NotUsableByMale" type="xs:boolean" use="optional"/>
+                  <xs:attribute name="DropOnWeaponChange" type="xs:boolean" use="optional"/>
+                  <xs:attribute name="DropOnAnyAction" type="xs:boolean" use="optional"/>
+                  <xs:attribute name="CannotBePickedUp" type="xs:boolean" use="optional"/>
+                  <xs:attribute name="CanBePickedUpFromCorpse" type="xs:boolean" use="optional"/>
+                  <xs:attribute name="QuickFadeOut" type="xs:boolean" use="optional"/>
+                  <xs:attribute name="WoodenAttack" type="xs:boolean" use="optional"/>
+                  <xs:attribute name="WoodenParry" type="xs:boolean" use="optional"/>
+                  <xs:attribute name="HeldInOffHand" type="xs:boolean" use="optional"/>
+                  <xs:attribute name="HasToBeHeldUp" type="xs:boolean" use="optional"/>
+                  <xs:attribute name="UseTeamColor" type="xs:boolean" use="optional"/>
+                  <xs:attribute name="Civilian" type="xs:boolean" use="optional"/>
+                  <xs:attribute name="Stealth" type="xs:boolean" use="optional"/>
+                  <xs:attribute name="DoNotScaleBodyAccordingToWeaponLength" type="xs:boolean" use="optional"/>
+                  <xs:attribute name="DoesNotHideChest" type="xs:boolean" use="optional"/>
+                  <xs:attribute name="DoesNotSpawnWhenDropped" type="xs:boolean" use="optional"/>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+            <xs:attribute name="item_category" use="optional">
+              <xs:simpleType>
+                <xs:restriction base="xs:string">
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="AmmoOffset" type="xs:string" use="optional"/>
+            <xs:attribute name="Type" type="xs:string" use="optional"/>
+            <xs:attribute name="crafted_item" type="xs:string" use="optional"/>
+            <xs:attribute name="multiplayer_item" type="xs:string" use="optional"/>
+            <xs:attribute name="lod_atlas_index" type="xs:unsignedInt" use="optional"/>
+            <xs:attribute name="id" type="xs:string" use="required"/>
+            <xs:attribute name="name" type="xs:string" use="required"/>
+            <xs:attribute name="mesh" type="xs:string" use="required"/>
+            <xs:attribute name="holster_mesh" type="xs:string" use="optional"/>
+            <xs:attribute name="holster_mesh_with_weapon" type="xs:string" use="optional"/>
+            <xs:attribute name="flying_mesh" type="xs:string" use="optional"/>
+            <xs:attribute name="body_name" type="xs:string" use="optional"/>
+            <xs:attribute name="skeleton_name" type="xs:string" use="optional"/>
+            <xs:attribute name="static_animation_name" type="xs:string" use="optional"/>
+            <xs:attribute name="holster_body_name" type="xs:string" use="optional"/>
+            <xs:attribute name="shield_body_name" type="xs:string" use="optional"/>
+            <xs:attribute name="recalculate_body" type="xs:boolean" use="optional"/>
+            <xs:attribute name="prefab" type="xs:string" use="optional"/>
+            <xs:attribute name="using_tableau" type="xs:boolean" use="optional"/>
+            <xs:attribute name="is_merchandise" type="xs:boolean" use="optional"/>
+            <xs:attribute name="value" type="xs:unsignedInt" use="optional"/>
+            <xs:attribute name="weight" type="xs:decimal" use="required"/>
+            <xs:attribute name="difficulty" type="xs:unsignedInt" use="optional"/>
+            <xs:attribute name="subtype" type="xs:string" use="optional"/>
+            <xs:attribute name="tier_override" type="xs:decimal" use="optional"/>
+            <xs:attribute name="appearance" type="xs:decimal" use="optional"/>
+            <xs:attribute name="culture" use="optional">
+              <xs:simpleType>
+                <xs:restriction base="xs:string">
+                  <xs:pattern value="Culture\..+"/>
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="using_arm_band" type="xs:string" use="optional"/>
+            <xs:attribute name="IsFood" type="xs:boolean" use="optional"/>
+            <xs:attribute name="scale_factor" type="positiveFloat" use="optional"/>
+            <xs:attribute name="item_holsters" type="xs:string" use="optional"/>
+            <xs:attribute name="has_lower_holster_priority" type="xs:boolean" use="optional"/>
+            <xs:attribute name="holster_position_shift" type="xs:string" use="optional"/>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="CraftedItem">
+          <xs:complexType>
+            <xs:all>
+              <xs:element name="Pieces">
+                <xs:annotation>
+                  <xs:appinfo>
+                    <appSpecificNote>AlwaysPreferMerge</appSpecificNote>
+                  </xs:appinfo>
+                </xs:annotation>
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Piece" maxOccurs="unbounded">
+                      <xs:complexType>
+                        <xs:attribute name="id" type="xs:string" use="required"/>
+                        <xs:attribute name="Type" type="xs:string" use="required"/>
+                        <xs:attribute name="scale_factor" type="xs:unsignedInt" use="optional"/>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+                <!-- Type attribute is unique for Piece -->
+                <xs:unique name="Piece_unique_attribute">
+                  <xs:selector xpath="Piece"/>
+                  <xs:field xpath="@Type"/>
+                </xs:unique>
+              </xs:element>
+            </xs:all>
+            <xs:attribute name="modifier_group" type="xs:string" use="optional"/>
+            <xs:attribute name="multiplayer_item" type="xs:string" use="optional"/>
+            <xs:attribute name="id" type="xs:string" use="required"/>
+            <xs:attribute name="name" type="xs:string" use="required"/>
+            <xs:attribute name="crafting_template" type="xs:string" use="required"/>
+            <xs:attribute name="value" type="xs:decimal" use="optional"/>
+            <xs:attribute name="is_merchandise" type="xs:boolean" use="optional"/>
+            <xs:attribute name="has_modifier" type="xs:boolean" use="optional"/>
+            <xs:attribute name="culture" use="optional">
+              <xs:simpleType>
+                <xs:restriction base="xs:string">
+                  <xs:pattern value="Culture\..+"/>
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="weight" type="xs:decimal" use="optional"/>
+            <xs:attribute name="swing_speed" type="xs:unsignedInt" use="optional"/>
+            <xs:attribute name="thrust_speed" type="xs:unsignedInt" use="optional"/>
+            <xs:attribute name="swing_damage" type="xs:unsignedInt" use="optional"/>
+            <xs:attribute name="thrust_damage" type="xs:unsignedInt" use="optional"/>
+			<xs:attribute name="fire_damage" type="xs:unsignedInt" use="optional"/>
+            <xs:attribute name="stealth_factor" use="optional">
+              <xs:simpleType>
+                <xs:restriction base="xs:float">
+                  <xs:minInclusive value="0.0"/>
+                  <xs:maxInclusive value="1.0"/>
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:attribute>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+
+    <!-- id attribute is unique for Item -->
+    <xs:unique name="Items_unique_attribute">
+      <xs:selector xpath="Item"/>
+      <xs:field xpath="@id"/>
+    </xs:unique>
+
+    <!-- id attribute is unique for CraftedItem -->
+    <xs:unique name="CraftedItem_unique_attribute">
+      <xs:selector xpath="CraftedItem"/>
+      <xs:field xpath="@id"/>
+    </xs:unique>
+
+  </xs:element>
+</xs:schema>

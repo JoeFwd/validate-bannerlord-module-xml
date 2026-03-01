@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="GameText" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+  <xs:element name="strings" msdata:IsDataSet="true">
+    <xs:complexType>
+		<xs:sequence>
+        <xs:element name="string" minOccurs="0" maxOccurs="unbounded">
+          <xs:complexType>
+            <xs:all>
+              <xs:element name="tags" minOccurs="0" maxOccurs="1">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="tag" minOccurs="0" maxOccurs="unbounded">
+                      <xs:complexType>
+                        <xs:attribute name="tag_name" type="xs:string" use="required" />
+                        <xs:attribute name="weight" type="xs:int" use="optional" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element> 
+	        </xs:all> 
+            <xs:attribute name="id" type="xs:string" use="required" />
+            <xs:attribute name="text" type="xs:string" use="required" />
+          </xs:complexType>
+        </xs:element>
+	  </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

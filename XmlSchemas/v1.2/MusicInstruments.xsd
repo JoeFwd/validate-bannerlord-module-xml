@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="MusicInstruments" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:element name="MusicInstruments">
+		<xs:complexType>
+			<xs:sequence maxOccurs="unbounded">
+				<xs:element name="MusicInstrument" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:all>
+							<xs:element name="Entities">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="Entity" minOccurs="0" maxOccurs="unbounded">
+											<xs:complexType>
+												<xs:attribute name="name" type="xs:string" use="required" />
+												<xs:attribute name="bone" type="xs:string" use="required" />
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:all>
+						<xs:attribute name="id" type="xs:string" use="required" />
+						<xs:attribute name="sittingAction" type="xs:string" use="required" />
+						<xs:attribute name="standingAction" type="xs:string" use="required" />
+						<xs:attribute name="tag" type="xs:string" use="required" />
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

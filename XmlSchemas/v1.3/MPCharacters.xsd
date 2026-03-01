@@ -1,0 +1,278 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<xs:schema xmlns=""
+  xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="MPCharacters">
+  <xs:element name="equipment">
+    <xs:complexType>
+      <xs:attribute name="slot" type="xs:string"/>
+      <xs:attribute name="id" type="xs:string"/>
+      <xs:attribute name="amount" type="xs:string"/>
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:element name="MPCharacters" msdata:IsDataSet="true">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="NPCCharacter" maxOccurs="unbounded">
+          <xs:complexType>
+            <xs:all>
+              <xs:element name="face" minOccurs="0">
+                <xs:annotation>
+                  <xs:appinfo>
+                    <appSpecificNote>AlwaysPreferMerge</appSpecificNote>
+                  </xs:appinfo>
+                </xs:annotation>
+                <xs:complexType>
+                  <xs:all>
+                    <xs:element name="BodyProperties" minOccurs="0">
+                      <xs:annotation>
+                        <xs:appinfo>
+                          <appSpecificNote>AlwaysPreferMerge</appSpecificNote>
+                        </xs:appinfo>
+                      </xs:annotation>
+                      <xs:complexType>
+                        <xs:attribute name="version" use="required">
+                          <xs:simpleType>
+                            <xs:restriction base="xs:string"/>
+                          </xs:simpleType>
+                        </xs:attribute>
+                        <xs:attribute name="age" use="required">
+                          <xs:simpleType>
+                            <xs:restriction base="xs:string"/>
+                          </xs:simpleType>
+                        </xs:attribute>
+                        <xs:attribute name="weight" use="required">
+                          <xs:simpleType>
+                            <xs:restriction base="xs:string"/>
+                          </xs:simpleType>
+                        </xs:attribute>
+                        <xs:attribute name="build" use="required">
+                          <xs:simpleType>
+                            <xs:restriction base="xs:string"/>
+                          </xs:simpleType>
+                        </xs:attribute>
+                        <xs:attribute name="key" use="required">
+                          <xs:simpleType>
+                            <xs:restriction base="xs:string"/>
+                          </xs:simpleType>
+                        </xs:attribute>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="BodyPropertiesMax" minOccurs="0">
+                      <xs:annotation>
+                        <xs:appinfo>
+                          <appSpecificNote>AlwaysPreferMerge</appSpecificNote>
+                        </xs:appinfo>
+                      </xs:annotation>
+                      <xs:complexType>
+                        <xs:attribute name="version" use="required">
+                          <xs:simpleType>
+                            <xs:restriction base="xs:string"/>
+                          </xs:simpleType>
+                        </xs:attribute>
+                        <xs:attribute name="age" use="required">
+                          <xs:simpleType>
+                            <xs:restriction base="xs:string"/>
+                          </xs:simpleType>
+                        </xs:attribute>
+                        <xs:attribute name="weight" use="required">
+                          <xs:simpleType>
+                            <xs:restriction base="xs:string"/>
+                          </xs:simpleType>
+                        </xs:attribute>
+                        <xs:attribute name="build" use="required">
+                          <xs:simpleType>
+                            <xs:restriction base="xs:string"/>
+                          </xs:simpleType>
+                        </xs:attribute>
+                        <xs:attribute name="key" use="required">
+                          <xs:simpleType>
+                            <xs:restriction base="xs:string"/>
+                          </xs:simpleType>
+                        </xs:attribute>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="face_key_template" minOccurs="0">
+                      <xs:annotation>
+                        <xs:appinfo>
+                          <appSpecificNote>AlwaysPreferMerge</appSpecificNote>
+                        </xs:appinfo>
+                      </xs:annotation>
+                      <xs:complexType>
+                        <xs:attribute name="value" use="required">
+                          <xs:simpleType>
+                            <xs:restriction base="xs:string"/>
+                          </xs:simpleType>
+                        </xs:attribute>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="hair_tags" minOccurs="0">
+                      <xs:annotation>
+                        <xs:appinfo>
+                          <appSpecificNote>AlwaysPreferMerge</appSpecificNote>
+                        </xs:appinfo>
+                      </xs:annotation>
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="hair_tag" minOccurs="0" maxOccurs="unbounded">
+                            <xs:complexType>
+                              <xs:attribute name="name" use="required">
+                                <xs:simpleType>
+                                  <xs:restriction base="xs:string"/>
+                                </xs:simpleType>
+                              </xs:attribute>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="beard_tags" minOccurs="0">
+                      <xs:annotation>
+                        <xs:appinfo>
+                          <appSpecificNote>AlwaysPreferMerge</appSpecificNote>
+                        </xs:appinfo>
+                      </xs:annotation>
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="beard_tag" minOccurs="0" maxOccurs="unbounded">
+                            <xs:complexType>
+                              <xs:attribute name="name" use="required">
+                                <xs:simpleType>
+                                  <xs:restriction base="xs:string"/>
+                                </xs:simpleType>
+                              </xs:attribute>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="tattoo_tags" minOccurs="0">
+                      <xs:annotation>
+                        <xs:appinfo>
+                          <appSpecificNote>AlwaysPreferMerge</appSpecificNote>
+                        </xs:appinfo>
+                      </xs:annotation>
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="tattoo_tag" minOccurs="0" maxOccurs="unbounded">
+                            <xs:complexType>
+                              <xs:attribute name="name" use="required">
+                                <xs:simpleType>
+                                  <xs:restriction base="xs:string"/>
+                                </xs:simpleType>
+                              </xs:attribute>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:all>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="skills" minOccurs="0">
+                <xs:annotation>
+                  <xs:appinfo>
+                    <appSpecificNote>AlwaysPreferMerge</appSpecificNote>
+                  </xs:appinfo>
+                </xs:annotation>
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="skill" minOccurs="0" maxOccurs="unbounded">
+                      <xs:complexType>
+                        <xs:attribute name="id" use="required">
+                          <xs:simpleType>
+                            <xs:restriction base="xs:string"/>
+                          </xs:simpleType>
+                        </xs:attribute>
+                        <xs:attribute name="value" type="xs:int" use="required"/>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+                <!-- id attribute is unique for skill -->
+                <xs:unique name="skill_unique_attribute">
+                  <xs:selector xpath="skill"/>
+                  <xs:field xpath="@id"/>
+                </xs:unique>
+              </xs:element>
+              <xs:element name="Equipments" minOccurs="0">
+                <xs:annotation>
+                  <xs:appinfo>
+                    <appSpecificNote>AlwaysPreferMerge</appSpecificNote>
+                  </xs:appinfo>
+                </xs:annotation>
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="EquipmentRoster" minOccurs="0" maxOccurs="unbounded">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element ref="equipment" minOccurs="0" maxOccurs="unbounded"/>
+                        </xs:sequence>
+                        <xs:attribute name="civilian" type="xs:boolean" use="optional"/>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="EquipmentSet" minOccurs="0" maxOccurs="unbounded">
+                      <xs:complexType>
+                        <xs:attribute name="id" type="xs:string" use="required"/>
+                        <xs:attribute name="civilian" type="xs:boolean" use="optional"/>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element ref="equipment" minOccurs="0" maxOccurs="unbounded"/>
+                  </xs:sequence>
+                </xs:complexType>
+                <!-- id attribute is unique for EquipmentSet -->
+                <xs:unique name="EquipmentSet_unique_attribute">
+                  <xs:selector xpath="EquipmentSet"/>
+                  <xs:field xpath="@id"/>
+                </xs:unique>
+                <!-- slot attribute is unique for equipment -->
+                <xs:unique name="equipment_unique_attribute">
+                  <xs:selector xpath="equipment"/>
+                  <xs:field xpath="@slot"/>
+                </xs:unique>
+              </xs:element>
+              <xs:element name="Resistances" minOccurs="0">
+                <xs:annotation>
+                  <xs:appinfo>
+                    <appSpecificNote>AlwaysPreferMerge</appSpecificNote>
+                  </xs:appinfo>
+                </xs:annotation>
+                <xs:complexType>
+                  <xs:attribute name="knockback" type="xs:int" use="optional"/>
+                  <xs:attribute name="knockdown" type="xs:int" use="optional"/>
+                  <xs:attribute name="dismount" type="xs:int" use="optional"/>
+                </xs:complexType>
+              </xs:element>
+            </xs:all>
+            <xs:attribute name="id" type="xs:string"/>
+            <xs:attribute name="default_group" type="xs:string"/>
+            <xs:attribute name="voice" type="xs:string" use="optional"/>
+            <xs:attribute name="race" type="xs:string" use="optional"/>
+            <xs:attribute name="is_hero" type="xs:string"/>
+            <xs:attribute name="is_female" type="xs:string"/>
+            <xs:attribute name="culture">
+              <xs:simpleType>
+                <xs:restriction base="xs:string">
+                  <xs:pattern value="Culture\..+"/>
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="name" type="xs:string"/>
+            <xs:attribute name="occupation" type="xs:string"/>
+            <xs:attribute name="level" type="xs:string"/>
+            <xs:attribute name="age" type="xs:string"/>
+            <xs:attribute name="formation_position_preference" type="xs:string"/>
+            <xs:attribute name="default_equipment_set" type="xs:string" use="optional"/>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+
+    <!-- id attribute is unique for MPCharacter -->
+    <xs:unique name="NPCCharacter_unique_attribute">
+      <xs:selector xpath="NPCCharacter"/>
+      <xs:field xpath="@id"/>
+    </xs:unique>
+
+  </xs:element>
+</xs:schema>

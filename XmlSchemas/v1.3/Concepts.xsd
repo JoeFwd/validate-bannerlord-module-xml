@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified">
+  <xs:element name="Concepts">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" name="Concept">
+          <xs:complexType>
+            <xs:attribute name="title" type="xs:string" use="required"/>
+            <xs:attribute name="id" type="xs:string" use="required"/>
+            <xs:attribute name="text" type="xs:string" use="required"/>
+            <xs:attribute name="link_id" type="xs:string" use="required"/>
+            <xs:attribute name="group" type="xs:string" use="optional"/>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+
+    <!-- id attribute is unique for Concept -->
+    <xs:unique name="Concept_unique_attribute">
+      <xs:selector xpath="Concept"/>
+      <xs:field xpath="@id"/>
+    </xs:unique>
+
+  </xs:element>
+</xs:schema>

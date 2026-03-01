@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="WorkshopTypes" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">          
+    <xs:element name="WorkshopTypes" msdata:IsDataSet="true">
+        <xs:complexType>
+			<xs:sequence>
+				<xs:element name="WorkshopType" minOccurs="0" maxOccurs="unbounded">
+                    <xs:complexType>
+                        <xs:sequence>
+							<xs:element name="Meshes" minOccurs="1">
+							<xs:complexType>
+								 <xs:attribute name="sign_mesh_name" type="xs:string" use="optional" /> 
+								<xs:attribute name="shop_prop_mesh_name_1" type="xs:string" use="optional" />
+								<xs:attribute name="shop_prop_mesh_name_2" type="xs:string" use="optional" />
+								<xs:attribute name="shop_prop_mesh_name_3_1" type="xs:string" use="optional" />
+                <xs:attribute name="shop_prop_mesh_name_3_2" type="xs:string" use="optional" />
+                <xs:attribute name="shop_prop_mesh_name_3_3" type="xs:string" use="optional" />
+                <xs:attribute name="shop_prop_mesh_name_4" type="xs:string" use="optional" />
+                <xs:attribute name="shop_prop_mesh_name_5" type="xs:string" use="optional" />
+                <xs:attribute name="shop_prop_mesh_name_6" type="xs:string" use="optional" />
+							</xs:complexType>
+						 </xs:element>
+                            <xs:element name="Production" minOccurs="1" maxOccurs="unbounded">
+                                <xs:complexType>
+									<xs:all>
+										<xs:element name="Inputs" minOccurs="1" maxOccurs="1">
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element name="Input" minOccurs="0" maxOccurs="unbounded">
+														<xs:complexType>
+															<xs:attribute name="input_item" type="xs:string" use="required" />
+                              <xs:attribute name="input_count" type="xs:unsignedInt" use="optional" />
+                            </xs:complexType>
+													</xs:element>
+												</xs:sequence>
+											</xs:complexType>
+										</xs:element>						
+										<xs:element name="Outputs" minOccurs="1" maxOccurs="1">
+									    <xs:complexType>
+									      <xs:sequence>
+													<xs:element name="Output" minOccurs="1" maxOccurs="unbounded">
+									          <xs:complexType>
+									            <xs:attribute name="output" type="xs:string" use="required" /> 
+									            <xs:attribute name="output_count" type="xs:unsignedInt" use="optional" /> 
+									          </xs:complexType>
+									        </xs:element>
+									      </xs:sequence>
+									    </xs:complexType>
+									  </xs:element>				
+									</xs:all>
+                                    <xs:attribute name="conversion_speed" type="xs:decimal" use="required" />
+								</xs:complexType>								
+							</xs:element>
+                        </xs:sequence>	
+						<xs:attribute name="id" type="xs:string" use="required" />
+						<xs:attribute name="name" type="xs:string" use="required" />
+						<xs:attribute name="jobname" type="xs:string" use="required" />
+            <xs:attribute name="isHidden" type="xs:boolean" use="optional" />
+						<xs:attribute name="frequency" type="xs:unsignedInt" use="optional" />
+						<xs:attribute name="equipment_cost" type="xs:unsignedInt" use="optional" />						
+						<xs:attribute name="description" type="xs:string" use="required" />						
+                    </xs:complexType>
+                </xs:element>			
+			</xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

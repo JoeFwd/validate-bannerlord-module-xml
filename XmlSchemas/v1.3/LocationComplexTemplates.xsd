@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified">
+  <xs:element name="LocationComplexTemplates">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="LocationComplexTemplate" maxOccurs="unbounded">	
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Location" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:attribute name="id" type="xs:string" use="required"/>
+                  <xs:attribute name="name" type="xs:string" use="required"/>
+                  <xs:attribute name="scene_name" type="xs:string" use="optional"/>
+                  <xs:attribute name="scene_name_1" type="xs:string" use="optional"/>
+                  <xs:attribute name="scene_name_2" type="xs:string" use="optional"/>
+                  <xs:attribute name="scene_name_3" type="xs:string" use="optional"/>
+                  <xs:attribute name="indoor" type="xs:boolean" use="required"/>
+                  <xs:attribute name="can_be_reserved" type="xs:boolean" use="optional"/>
+                  <xs:attribute name="max_prosperity" type="xs:decimal" use="required"/>
+                  <xs:attribute name="ai_can_enter" type="xs:string" use="required"/>
+                  <xs:attribute name="ai_can_exit" type="xs:string" use="required"/>
+                  <xs:attribute name="player_can_enter" type="xs:string" use="required"/>
+                  <xs:attribute name="player_can_see" type="xs:string" use="required"/>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="Passages">
+                <xs:annotation>
+                  <xs:appinfo>
+                    <appSpecificNote>AlwaysPreferMerge</appSpecificNote>
+                  </xs:appinfo>
+                </xs:annotation>
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Passage" minOccurs="0" maxOccurs="unbounded">
+                      <xs:complexType>
+                        <xs:attribute name="location_1" type="xs:string" use="required"/>
+                        <xs:attribute name="location_2" type="xs:string" use="required"/>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+                <!-- location_1 and location_2 attributes are unique for Passage -->
+                <xs:unique name="passage_unique_attribute">
+                  <xs:selector xpath="Passage"/>
+                  <xs:field xpath="@location_1"/>
+                  <xs:field xpath="@location_2"/>
+                </xs:unique>
+              </xs:element>
+            </xs:sequence>
+            <xs:attribute name="id" type="xs:string" use="required"/>
+          </xs:complexType>
+          <!-- id attribute is unique for Location -->
+          <xs:unique name="Location_unique_attribute">
+            <xs:selector xpath="Location"/>
+            <xs:field xpath="@id"/>
+          </xs:unique>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+
+    <!-- id attribute is unique for LocationComplexTemplate -->
+    <xs:unique name="LocationComplexTemplate_unique_attribute">
+      <xs:selector xpath="LocationComplexTemplate"/>
+      <xs:field xpath="@id"/>
+    </xs:unique>
+
+  </xs:element>
+</xs:schema>

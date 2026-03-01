@@ -1,0 +1,188 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified">
+  <xs:element name="MPClassDivisions">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" name="MPClassDivision">
+          <xs:complexType>
+            <xs:all>
+              <xs:element name="Perks" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                  <xs:appinfo>
+                    <appSpecificNote>AlwaysPreferMerge</appSpecificNote>
+                  </xs:appinfo>
+                </xs:annotation>
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element maxOccurs="unbounded" name="Perk">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="ConditionalEffect" minOccurs="0" maxOccurs="unbounded">
+                            <xs:complexType mixed="true">
+                              <xs:all minOccurs="0">
+                                <xs:element name="Conditions">
+                                  <xs:annotation>
+                                    <xs:appinfo>
+                                      <appSpecificNote>AlwaysPreferMerge</appSpecificNote>
+                                    </xs:appinfo>
+                                  </xs:annotation>
+                                  <xs:complexType mixed="true">
+                                    <xs:sequence minOccurs="0">
+                                      <xs:element maxOccurs="unbounded" name="Condition">
+                                        <xs:complexType>
+                                          <xs:attribute name="type" type="xs:string" use="required"/>
+                                          <xs:attribute name="min" type="xs:decimal" use="optional"/>
+                                          <xs:attribute name="max" type="xs:decimal" use="optional"/>
+                                          <xs:attribute name="owner" type="xs:string" use="optional"/>
+                                          <xs:attribute name="status" type="xs:string" use="optional"/>
+                                          <xs:attribute name="role" type="xs:string" use="optional"/>
+                                          <xs:attribute name="is_player_controlled" type="xs:string" use="optional"/>
+                                          <xs:attribute name="is_ratio" type="xs:string" use="optional"/>
+                                          <xs:attribute name="agent_status" type="xs:string" use="optional"/>
+                                        </xs:complexType>
+                                      </xs:element>
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element name="Effects">
+                                  <xs:annotation>
+                                    <xs:appinfo>
+                                      <appSpecificNote>AlwaysPreferMerge</appSpecificNote>
+                                    </xs:appinfo>
+                                  </xs:annotation>
+                                  <xs:complexType mixed="true">
+                                    <xs:sequence minOccurs="0">
+                                      <xs:element maxOccurs="unbounded" name="Effect">
+                                        <xs:complexType>
+                                          <xs:attribute name="type" type="xs:string" use="required"/>
+                                          <xs:attribute name="value" type="xs:decimal" use="optional"/>
+                                          <xs:attribute name="driven_property" type="xs:string" use="optional"/>
+                                          <xs:attribute name="attack_type" type="xs:string" use="optional"/>
+                                          <xs:attribute name="damage_type" type="xs:string" use="optional"/>
+                                          <xs:attribute name="weapon_class" type="xs:string" use="optional"/>
+                                          <xs:attribute name="hit_type" type="xs:string" use="optional"/>
+                                          <xs:attribute name="target" type="xs:string" use="optional"/>
+                                          <xs:attribute name="enemy_value" type="xs:string" use="optional"/>
+                                          <xs:attribute name="order_by" type="xs:string" use="optional"/>
+                                          <xs:attribute name="block_type" type="xs:string" use="optional"/>
+                                          <xs:attribute name="number_of_receivers" type="xs:integer" use="optional"/>
+                                          <xs:attribute name="period" type="xs:integer" use="optional"/>
+                                          <xs:attribute name="is_ratio" type="xs:string" use="optional"/>
+                                          <xs:attribute name="is_disabled_in_warmup" type="xs:string" use="optional"/>
+                                        </xs:complexType>
+                                      </xs:element>
+                                    </xs:sequence>
+                                    <xs:attribute name="target" type="xs:string" use="optional"/>
+                                  </xs:complexType>
+                                </xs:element>
+                              </xs:all>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element name="Effect" minOccurs="0" maxOccurs="unbounded">
+                            <xs:complexType>
+                              <xs:attribute name="type" type="xs:string" use="required"/>
+                              <xs:attribute name="value" type="xs:decimal" use="optional"/>
+                              <xs:attribute name="driven_property" type="xs:string" use="optional"/>
+                              <xs:attribute name="attack_type" type="xs:string" use="optional"/>
+                              <xs:attribute name="damage_type" type="xs:string" use="optional"/>
+                              <xs:attribute name="weapon_class" type="xs:string" use="optional"/>
+                              <xs:attribute name="hit_type" type="xs:string" use="optional"/>
+                              <xs:attribute name="enemy_value" type="xs:string" use="optional"/>
+                              <xs:attribute name="order_by" type="xs:string" use="optional"/>
+                              <xs:attribute name="block_type" type="xs:string" use="optional"/>
+                              <xs:attribute name="number_of_receivers" type="xs:integer" use="optional"/>
+                              <xs:attribute name="period" type="xs:integer" use="optional"/>
+                              <xs:attribute name="is_ratio" type="xs:string" use="optional"/>
+                              <xs:attribute name="is_disabled_in_warmup" type="xs:string" use="optional"/>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element name="OnSpawnEffect" minOccurs="0" maxOccurs="unbounded">
+                            <xs:complexType>
+                              <xs:attribute name="type" type="xs:string" use="required"/>
+                              <xs:attribute name="slot" type="xs:string" use="optional"/>
+                              <xs:attribute name="item" type="xs:string" use="optional"/>
+                              <xs:attribute name="driven_property" type="xs:string" use="optional"/>
+                              <xs:attribute name="value" type="xs:decimal" use="optional"/>
+                              <xs:attribute name="target" type="xs:string" use="optional"/>
+                              <xs:attribute name="is_ratio" type="xs:string" use="optional"/>
+                              <xs:attribute name="is_disabled_in_warmup" type="xs:string" use="optional"/>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element name="RandomOnSpawnEffect" minOccurs="0" maxOccurs="unbounded">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element maxOccurs="unbounded" name="Group">
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element maxOccurs="unbounded" name="Item">
+                                        <xs:complexType>
+                                          <xs:attribute name="slot" type="xs:string" use="optional"/>
+                                          <xs:attribute name="item" type="xs:string" use="optional"/>
+                                        </xs:complexType>
+                                      </xs:element>
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+                              </xs:sequence>
+                              <xs:attribute name="type" type="xs:string" use="required"/>
+                              <xs:attribute name="target" type="xs:string" use="optional"/>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                        <xs:attribute name="game_mode" type="xs:string" use="required"/>
+                        <xs:attribute name="name" type="xs:string" use="required"/>
+                        <xs:attribute name="description" type="xs:string" use="required"/>
+                        <xs:attribute name="icon" type="xs:string" use="required"/>
+                        <xs:attribute name="hero_idle_anim" type="xs:string" use="optional"/>
+                        <xs:attribute name="troop_idle_anim" type="xs:string" use="optional"/>
+                        <xs:attribute name="hero_mount_idle_anim" type="xs:string" use="optional"/>
+                        <xs:attribute name="troop_mount_idle_anim" type="xs:string" use="optional"/>
+                        <xs:attribute name="perk_list" type="xs:unsignedByte" use="required"/>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+                <!-- name attribute is unique for Perk -->
+                <xs:unique name="Perk_unique_attribute">
+                  <xs:selector xpath="Perk"/>
+                  <xs:field xpath="@game_mode"/>
+                  <xs:field xpath="@name"/>
+                </xs:unique>
+              </xs:element>
+            </xs:all>
+            <xs:attribute name="id" type="xs:string" use="required"/>
+            <xs:attribute name="hero" type="xs:string" use="required"/>
+            <xs:attribute name="troop" type="xs:string" use="required"/>
+            <xs:attribute name="banner_bearer" type="xs:string" use="optional"/>
+            <xs:attribute name="hero_idle_anim" type="xs:string" use="optional"/>
+            <xs:attribute name="troop_idle_anim" type="xs:string" use="optional"/>
+            <xs:attribute name="hero_mount_idle_anim" type="xs:string" use="optional"/>
+            <xs:attribute name="troop_mount_idle_anim" type="xs:string" use="optional"/>
+            <xs:attribute name="multiplier" type="xs:decimal" use="required"/>
+            <xs:attribute name="cost" type="xs:integer" use="required"/>
+            <xs:attribute name="casual_cost" type="xs:integer" use="optional"/>
+            <xs:attribute name="battle_cost" type="xs:integer" use="optional"/>
+            <xs:attribute name="icon" type="xs:string" use="required"/>
+            <xs:attribute name="armor" type="xs:integer" use="required"/>
+            <xs:attribute name="movement_speed" type="xs:decimal" use="required"/>
+            <xs:attribute name="combat_movement_speed" type="xs:decimal" use="required"/>
+            <xs:attribute name="acceleration" type="xs:decimal" use="required"/>
+            <xs:attribute name="troop_movement_speed" type="xs:decimal" use="optional"/>
+            <xs:attribute name="troop_combat_movement_speed" type="xs:decimal" use="optional"/>
+            <xs:attribute name="troop_acceleration" type="xs:decimal" use="optional"/>
+            <xs:attribute name="hitpoints" type="xs:integer" use="optional"/>
+            <xs:attribute name="melee_ai" type="xs:integer" use="optional"/>
+            <xs:attribute name="ranged_ai" type="xs:integer" use="optional"/>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+
+    <!-- id attribute is unique for MPClassDivision -->
+    <xs:unique name="MPClassDivision_unique_attribute">
+      <xs:selector xpath="MPClassDivision"/>
+      <xs:field xpath="@id"/>
+    </xs:unique>
+
+  </xs:element>
+</xs:schema>

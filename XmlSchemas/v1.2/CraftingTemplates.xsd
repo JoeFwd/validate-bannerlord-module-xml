@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="CraftingTemplates">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="CraftingTemplate" minOccurs="0" maxOccurs="unbounded">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="PieceDatas">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="PieceData" minOccurs="0" maxOccurs="unbounded">
+                      <xs:complexType>
+                        <xs:attribute name="piece_type" type="xs:string" use="required" />
+                        <xs:attribute name="build_order" type="xs:string" use="required" />
+                        <xs:attribute name="enforced_piece_shift_amount" type="xs:string" use="optional" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="WeaponDescriptions">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="WeaponDescription" minOccurs="0" maxOccurs="unbounded">
+                      <xs:complexType>
+                        <xs:attribute name="id" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="StatsData" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="StatData" minOccurs="0" maxOccurs="unbounded">
+                      <xs:complexType>
+                        <xs:attribute name="stat_type" type="xs:string" use="required" />
+                        <xs:attribute name="max_value" type="xs:decimal" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="weapon_description" type="xs:string" use="optional" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="UsablePieces">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="UsablePiece" minOccurs="0" maxOccurs="unbounded">
+                      <xs:complexType>
+                        <xs:attribute name="piece_id" type="xs:string" use="required" />
+                        <xs:attribute name="mp_piece" type="xs:string" use="optional" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+            <xs:attribute name="id" type="xs:string" use="required" />
+            <xs:attribute name="item_type" type="xs:string" use="required" />
+            <xs:attribute name="modifier_group" type="xs:string" use="required" />
+            <xs:attribute name="item_holsters" type="xs:string" use="required" />
+            <xs:attribute name="piece_type_to_scale_holster_with" type="xs:string" use="optional" />
+            <xs:attribute name="hidden_piece_types_on_holster" type="xs:string" use="optional" />
+            <xs:attribute name="default_item_holster_position_offset" type="xs:string" use="required" />
+            <xs:attribute name="rotate_weapon_in_holster" type="xs:string" use="optional" />
+            <xs:attribute name="use_weapon_as_holster_mesh" type="xs:string" use="optional" />
+            <xs:attribute name="always_show_holster_with_weapon" type="xs:string" use="optional" />
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="Kingdom" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+  <xs:element name="Kingdoms" msdata:IsDataSet="true">
+    <xs:complexType>
+            <xs:sequence>
+        <xs:element name="Kingdom" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+            <xs:all>
+              <xs:element name ="relationships" minOccurs="0">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="relationship" minOccurs="0" maxOccurs="unbounded">
+                      <xs:complexType>
+                        <xs:attribute name="clan" use="optional">
+                          <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                              <xs:pattern value="Faction\..+"/>
+                            </xs:restriction>
+                          </xs:simpleType>
+                        </xs:attribute>
+                        <xs:attribute name="kingdom" use="optional">
+                          <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                              <xs:pattern value="Kingdom\..+"/>
+                            </xs:restriction>
+                          </xs:simpleType>
+                        </xs:attribute>
+                        <xs:attribute name="value" type="xs:int" use="required" />
+                        <xs:attribute name="isAtWar" type="xs:boolean" use="optional" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name ="policies" minOccurs="0">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="policy" minOccurs="0" maxOccurs="unbounded">
+                      <xs:complexType>
+                        <xs:attribute name="id" use="optional">
+                          <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                            </xs:restriction>
+                          </xs:simpleType>
+                        </xs:attribute>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:all>
+            <xs:attribute name="id" type="xs:string" use="required" />
+            <xs:attribute name="banner_key" type="xs:string" use="optional"/>
+            <xs:attribute name="owner" use="optional">
+              <xs:simpleType>
+                <xs:restriction base="xs:string">
+                  <xs:pattern value="Hero\..+"/>
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="label_color" use="optional">
+              <xs:simpleType>
+                <xs:restriction base="xs:string">
+                  <xs:pattern value="(0x|0X)?([a-fA-F0-9]{2})+"/>
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="primary_banner_color" use="required">
+              <xs:simpleType>
+                <xs:restriction base="xs:string">
+                  <xs:pattern value="(0x|0X)?([a-fA-F0-9]{2})+"/>
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="secondary_banner_color" use="required">
+              <xs:simpleType>
+                <xs:restriction base="xs:string">
+                  <xs:pattern value="(0x|0X)?([a-fA-F0-9]{2})+"/>
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="color" use="optional">
+              <xs:simpleType>
+                <xs:restriction base="xs:string">
+                  <xs:pattern value="(0x|0X)?([a-fA-F0-9]{2})+"/>
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="color2" use="optional">
+              <xs:simpleType>
+                <xs:restriction base="xs:string">
+                  <xs:pattern value="(0x|0X)?([a-fA-F0-9]{2})+"/>
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="alternative_color" use="optional">
+              <xs:simpleType>
+                <xs:restriction base="xs:string">
+                  <xs:pattern value="(0x|0X)?([a-fA-F0-9]{2})+"/>
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="alternative_color2" use="optional">
+              <xs:simpleType>
+                <xs:restriction base="xs:string">
+                  <xs:pattern value="(0x|0X)?([a-fA-F0-9]{2})+"/>
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="culture" use="required">
+              <xs:simpleType>
+                <xs:restriction base="xs:string">
+                  <xs:pattern value="Culture\..+"/>
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="settlement_banner_mesh" type="xs:string" use="optional" />
+            <xs:attribute name="flag_mesh" type="xs:string" use="optional" />
+            <xs:attribute name="name" type="xs:string" use="required" />
+            <xs:attribute name="short_name" type="xs:string" use="optional" />
+            <xs:attribute name="text" type="xs:string" use="optional" />
+            <xs:attribute name="title" type="xs:string" use="optional" />
+            <xs:attribute name="ruler_title" type="xs:string" use="optional" />
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

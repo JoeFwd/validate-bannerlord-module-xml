@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="Settlements" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+  <xs:element name="Settlements" msdata:IsDataSet="true">
+    <xs:complexType>
+            <xs:sequence>
+        <xs:element name="Settlement" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+            <xs:all>
+              <xs:element name="Components" minOccurs="0">
+                      <xs:complexType>
+                  <xs:choice minOccurs = "0">
+                    <xs:element name="Hideout" minOccurs="0" maxOccurs="unbounded">
+                      <xs:complexType>
+                        <xs:attribute name="id" type="xs:string" use="required" />
+                        <xs:attribute name="map_icon" type="xs:string" use="required" />
+                        <xs:attribute name="scene_name" type="xs:string" use="required" />
+                        <xs:attribute name="background_crop_position" type="xs:decimal" use="required" />
+                        <xs:attribute name="background_mesh" type="xs:string" use="required" />
+                        <xs:attribute name="wait_mesh" type="xs:string" use="required" />
+                        <xs:attribute name="gate_rotation" type="xs:decimal" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="Village" minOccurs="0" maxOccurs="unbounded">
+                      <xs:complexType>
+                        <xs:attribute name="id" type="xs:string" use="required" />
+                        <xs:attribute name="village_type" type="xs:string" use="required" />
+                        <xs:attribute name="gate_rotation" type="xs:decimal" use="optional" />
+                        <xs:attribute name="hearth" type="xs:string" use="required" />
+                        <xs:attribute name="bound" use="required">
+                          <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                              <xs:pattern value="Settlement\..+"/>
+                            </xs:restriction>
+                          </xs:simpleType>
+                        </xs:attribute>
+                        <xs:attribute name="background_crop_position" type="xs:decimal" use="required" />
+                        <xs:attribute name="background_mesh" type="xs:string" use="required" />
+                        <xs:attribute name="castle_background_mesh" type="xs:string" use="required" />
+                        <xs:attribute name="wait_mesh" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="Town" minOccurs="0" maxOccurs="unbounded">
+                      <xs:complexType>
+                        <xs:attribute name="id" type="xs:string" use="required" />
+                        <xs:attribute name="is_castle" type="xs:boolean" use="required" />
+                        <xs:attribute name="level" type="xs:decimal" use="required" />
+                        <xs:attribute name="background_crop_position" type="xs:decimal" use="required" />
+                        <xs:attribute name="background_mesh" type="xs:string" use="required" />
+                        <xs:attribute name="wait_mesh" type="xs:string" use="required" />
+                        <xs:attribute name="gate_rotation" type="xs:decimal" use="required" />
+            			<xs:attribute name="prosperity" type="xs:string" use="optional" />
+                      </xs:complexType>
+                    </xs:element>
+					<xs:element name="RetirementSettlementComponent" minOccurs="0" maxOccurs="unbounded">
+					  <xs:complexType>
+						<xs:attribute name="id" type="xs:string" use="required" />
+						<xs:anyAttribute processContents="skip"/>
+                </xs:complexType>
+              </xs:element>
+                  </xs:choice>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="Locations" minOccurs="0">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Location" minOccurs="0" maxOccurs="unbounded">
+                      <xs:complexType>
+                        <xs:attribute name="id" type="xs:string" use="required" />
+                        <xs:attribute name="scene_name" type="xs:string" use="optional" />
+                        <xs:attribute name="scene_name_1" type="xs:string" use="optional" />
+                        <xs:attribute name="scene_name_2" type="xs:string" use="optional" />
+                        <xs:attribute name="scene_name_3" type="xs:string" use="optional" />
+                        <xs:attribute name="max_prosperity" type="xs:decimal" use="optional" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="complex_template" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="CommonAreas" minOccurs="0">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Area" minOccurs="0" maxOccurs="unbounded">
+                      <xs:complexType>
+                        <xs:attribute name="type" type="xs:string" use="required" />
+                        <xs:attribute name="name" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:all>
+            <xs:attribute name="owner" use="optional">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+                    <xs:pattern value="Faction\..+"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+			<xs:attribute name="id" type="xs:string" use="required" />
+            <xs:attribute name="name" type="xs:string" use="required" />
+            <xs:attribute name="posX" type="xs:decimal" use="required" />
+            <xs:attribute name="posY" type="xs:decimal" use="required" />
+            <xs:attribute name="gate_posX" type="xs:decimal" use="optional" />
+            <xs:attribute name="gate_posY" type="xs:decimal" use="optional" />
+            <xs:attribute name="culture" use="optional">
+              <xs:simpleType>
+                <xs:restriction base="xs:string">
+                  <xs:pattern value="Culture\..+"/>
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="gate_rotation" type="xs:decimal" use="optional" />
+            <xs:attribute name="type" type="xs:string" use="optional" />
+            <xs:attribute name="text" type="xs:string" use="optional" />
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

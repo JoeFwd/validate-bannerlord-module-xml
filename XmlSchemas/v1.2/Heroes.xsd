@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="Heroes">
+    <xs:complexType>
+		<xs:sequence>
+        <xs:element maxOccurs="unbounded" minOccurs="0" name="Hero">
+          <xs:complexType>
+            <xs:attribute name="id" type="xs:string" use="required" />
+            <xs:attribute name="father" type="xs:string" use="optional" />
+            <xs:attribute name="mother" type="xs:string" use="optional" />
+            <xs:attribute name="faction" type="xs:string" use="required" />
+            <xs:attribute name="banner_key" type="xs:string" use="optional" />
+            <xs:attribute name="spouse" type="xs:string" use="optional" />
+            <xs:attribute name="alive" type="xs:boolean" use="optional" />
+            <xs:attribute name="text" type="xs:string" use="optional" />
+			<xs:attribute name="preferred_upgrade_formation" type="xs:string" use="optional" />
+            <xs:attribute name="banner_item" type="xs:string" use="optional" />
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

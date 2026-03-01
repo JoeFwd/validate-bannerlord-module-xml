@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="Factions" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+	<xs:element name="SiegeEngineTypes" msdata:IsDataSet="true">
+		<xs:complexType>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="SiegeEngineType">
+          <xs:complexType>
+            <xs:attribute name="id" type="xs:string" use="required" />
+            <xs:attribute name="name" type="xs:string" use="required" />
+            <xs:attribute name="difficulty" type="xs:integer" use="optional" />
+            <xs:attribute name="description" type="xs:string" use="required" />
+            <xs:attribute name="max_hit_points" type="xs:integer" use="optional" />
+            <xs:attribute name="tool_cost" type="xs:integer" use="optional" default="0"/>
+            <xs:attribute name="hit_chance" type="xs:decimal" use="optional" default="0" />
+            <xs:attribute name="is_anti_personnel" type="xs:boolean" use="optional" default="false"/>
+            <xs:attribute name="anti_personnel_hit_chance" type="xs:decimal" use="optional" default="0"/>
+            <xs:attribute name="is_constructible" type="xs:boolean" use="optional" default="true"/>
+            <xs:attribute name="is_ranged" type="xs:boolean" use="optional" default="false"/>
+            <xs:attribute name="damage" type="xs:integer" use="optional" default="0"/>
+            <xs:attribute name="man_day_cost" type="xs:integer" use="optional" default="1"/>
+            <xs:attribute name="campaign_rate_of_fire_per_day" type="xs:decimal" use="optional" default="1"/>
+            <xs:attribute name="movement_speed" type="xs:decimal" use="optional" default="0"/>
+            <xs:attribute name="projectile_speed" type="xs:decimal" use="optional" default="0"/>
+          </xs:complexType>
+        </xs:element>
+			</xs:choice>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

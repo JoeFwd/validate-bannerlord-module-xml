@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="ItemModifierGroups" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+  <xs:element name="ItemModifierGroups">
+    <xs:complexType>
+		<xs:sequence>
+        <xs:element maxOccurs="unbounded" name="ItemModifierGroup">
+          <xs:complexType>
+            <xs:attribute name="id" type="xs:string" use="required" />
+            <xs:attribute name="no_modifier_loot_score" type="xs:int" use="required" />
+            <xs:attribute name="no_modifier_production_score" type="xs:int" use="required" />
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

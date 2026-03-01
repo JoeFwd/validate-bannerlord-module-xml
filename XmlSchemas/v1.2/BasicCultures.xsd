@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="BasicCultures" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+	<xs:element name="BasicCultures" msdata:IsDataSet="true">
+		<xs:complexType>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element name="Culture">
+					<xs:complexType>
+						<xs:attribute name="id" type="xs:string" use="required" />
+						<xs:attribute name="name" type="xs:string" use="required" />
+						<xs:attribute name="is_main_culture" type="xs:string" use="optional" />
+						<xs:attribute name="default_face_key" type="xs:string" use="optional" />
+							<xs:attribute name="color" use="optional">
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+								  <xs:pattern value="(0x|0X)?([a-fA-F0-9]{2})+"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:attribute>
+						<xs:attribute name="color2" use="optional">
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+								  <xs:pattern value="(0x|0X)?([a-fA-F0-9]{2})+"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:attribute>
+						<xs:attribute name="banner_background_color1" use="optional">
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+								  <xs:pattern value="(0x|0X)?([a-fA-F0-9]{2})+"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:attribute>
+						<xs:attribute name="banner_foreground_color1" use="optional">
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+								  <xs:pattern value="(0x|0X)?([a-fA-F0-9]{2})+"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:attribute>
+						<xs:attribute name="banner_background_color2" use="optional">
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+								  <xs:pattern value="(0x|0X)?([a-fA-F0-9]{2})+"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:attribute>
+							<xs:attribute name="banner_foreground_color2" use="optional">
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+								  <xs:pattern value="(0x|0X)?([a-fA-F0-9]{2})+"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:attribute>
+						<xs:attribute name="cloth_alternative_color1" use="optional">
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+								  <xs:pattern value="(0x|0X)?([a-fA-F0-9]{2})+"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:attribute>
+						<xs:attribute name="cloth_alternative_color2" use="optional">
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+								  <xs:pattern value="(0x|0X)?([a-fA-F0-9]{2})+"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:attribute>
+						<xs:attribute name="faction_banner_key" use="optional">
+							<xs:simpleType>
+								<xs:restriction base="xs:string"/>
+							</xs:simpleType>
+						</xs:attribute>
+          			</xs:complexType>
+				</xs:element>
+			</xs:choice>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>
