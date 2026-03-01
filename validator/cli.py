@@ -19,6 +19,34 @@ from .submodule import validate_module
 from .xsd_resolver import DirectoryXsdResolver, XsltPatchedXsdResolver
 
 _XSLT_PATH = Path(__file__).parent.parent / "XmlSchemas" / "expanded-api.xslt"
+_BUNDLED_XSD_ROOT = Path(__file__).parent.parent / "XmlSchemas"
+
+
+def _resolve_bundled_xsd_dir(version: str) -> Path:
+    """
+    Resolve the bundled XSD directory for a given Bannerlord version string.
+
+    Accepts formats like '1.3', 'v1.3', '1.3.8', 'v1.3.8'.
+    Only the major.minor portion is used; the patch component is ignored.
+    Raises ValueError if the format is unrecognised or the directory does not exist.
+    """
+    v = version.lstrip("v")
+    parts = v.split(".")
+    if len(parts) < 2:
+        raise ValueError(
+            f"Cannot parse Bannerlord version '{version}'. "
+            "Expected format: '1.3', 'v1.3', '1.3.8', etc."
+        )
+    major_minor = f"{parts[0]}.{parts[1]}"
+    xsd_dir = _BUNDLED_XSD_ROOT / f"v{major_minor}"
+    if not xsd_dir.is_dir():
+        available = sorted(p.name for p in _BUNDLED_XSD_ROOT.iterdir() if p.is_dir() and p.name.startswith("v"))
+        raise ValueError(
+            f"bannerlord-version '{version}' resolved to 'v{major_minor}' "
+            f"but no matching XSD directory was found.\n"
+            f"Available versions: {', '.join(available) or '(none)'}"
+        )
+    return xsd_dir
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -30,27 +58,22 @@ def build_parser() -> argparse.ArgumentParser:
         ),
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
-XSD schemas
------------
-  The game ships XSD files in <GameDir>/XmlSchemas/. Copy that directory into
-  your repo (e.g. XmlSchemas/v1.3/) and point --xsd-dir at it.
-
 Examples
 --------
   # Validate SubModule.xml only
-  python validate_module_xml.py \\
+  python -m validator \\
       --module ../DellarteDellaGuerraMap \\
-      --xsd-dir XmlSchemas/v1.3
+      --bannerlord-version 1.3
 
   # Validate SubModule.xml + ModuleData/project.mbproj
-  python validate_module_xml.py \\
+  python -m validator \\
       --module ../DellarteDellaGuerraMap \\
-      --xsd-dir XmlSchemas/v1.3 --mbproj
+      --bannerlord-version 1.3 --mbproj
 
   # Allow expanded equipment API attributes (siege/battle/pool)
-  python validate_module_xml.py \\
+  python -m validator \\
       --module ../DellarteDellaGuerraMap \\
-      --xsd-dir XmlSchemas/v1.3 --bannerlord-xml-expanded-api
+      --bannerlord-version 1.3 --bannerlord-xml-expanded-api
         """,
     )
 
@@ -69,10 +92,15 @@ Examples
         ),
     )
     parser.add_argument(
-        "--xsd-dir", "-x",
+        "--bannerlord-version", "-x",
         required=True,
-        metavar="XSD_DIR",
-        help="Directory containing the Bannerlord XSD schema files.",
+        metavar="VERSION",
+        dest="bannerlord_version",
+        help=(
+            "Target Bannerlord version. Selects which bundled XSD set to use. "
+            "Accepts '1.2', '1.3', 'v1.2', 'v1.3', or a full patch like 'v1.3.8' "
+            "(the patch component is ignored — only major.minor matters)."
+        ),
     )
     parser.add_argument(
         "--game-type", "-g",
@@ -128,9 +156,10 @@ def main(argv: list[str] | None = None) -> int:
     parser = build_parser()
     args = parser.parse_args(argv)
 
-    xsd_dir = Path(args.xsd_dir).resolve()
-    if not xsd_dir.is_dir():
-        print(f"ERROR: XSD directory not found: {xsd_dir}", file=sys.stderr)
+    try:
+        xsd_dir = _resolve_bundled_xsd_dir(args.bannerlord_version)
+    except ValueError as exc:
+        print(f"ERROR: {exc}", file=sys.stderr)
         return 2
 
     if not is_lxml_available:

@@ -69,44 +69,17 @@ runs:
       shell: bash
       run: pip install lxml --quiet
 
-    - name: Resolve XSD directory
-      id: xsd
-      shell: bash
-      env:
-        INPUT_VERSION: ${{ inputs.bannerlord-version }}
-      run: |
-        # Strip leading 'v', then take only the major.minor portion.
-        # Examples:  v1.3.8 -> 1.3   |   1.2 -> 1.2   |   v1.3 -> 1.3
-        VERSION="${INPUT_VERSION#v}"          # strip 'v' prefix
-        MAJOR_MINOR="${VERSION%.*}"           # drop patch if present (1.3.8 -> 1.3)
-        # If there was no dot-patch, ${VERSION%.*} gives the same string, which is fine.
-        # Edge-case: if input is just "1" with no minor, we leave it as-is and let
-        # the directory check below produce a helpful error.
-
-        XSD_DIR="${{ github.action_path }}/XmlSchemas/v${MAJOR_MINOR}"
-
-        if [ ! -d "$XSD_DIR" ]; then
-          AVAILABLE=$(ls "${{ github.action_path }}/XmlSchemas/" | tr '\n' ' ')
-          echo "::error::bannerlord-version '${INPUT_VERSION}' resolved to 'v${MAJOR_MINOR}' but no matching XSD directory was found."
-          echo "::error::Available versions: ${AVAILABLE}"
-          exit 2
-        fi
-
-        XSD_COUNT=$(ls "$XSD_DIR"/*.xsd 2>/dev/null | wc -l)
-        echo "xsd_dir=$XSD_DIR" >> "$GITHUB_OUTPUT"
-        echo "Bannerlord v${MAJOR_MINOR}: using $XSD_COUNT XSD schemas from $XSD_DIR"
-
     - name: Validate module XML
       id: validate
       shell: bash
       env:
         INPUT_MODULE_PATH:                ${{ inputs.module-path }}
+        INPUT_BANNERLORD_VERSION:         ${{ inputs.bannerlord-version }}
         INPUT_GAME_TYPE:                  ${{ inputs.game-type }}
         INPUT_STRICT:                     ${{ inputs.strict }}
         INPUT_VALIDATE_MBPROJ:            ${{ inputs.validate-mbproj }}
         INPUT_VERBOSE:                    ${{ inputs.verbose }}
         INPUT_BANNERLORD_XML_EXPANDED_API: ${{ inputs.bannerlord-xml-expanded-api }}
-        XSD_DIR:                          ${{ steps.xsd.outputs.xsd_dir }}
       run: |
         EXTRA_ARGS=(--github-annotations)
         [ "$INPUT_STRICT"                   = "true" ] && EXTRA_ARGS+=(--strict)
@@ -117,7 +90,7 @@ runs:
 
         PYTHONPATH="${{ github.action_path }}" python -m validator \
           --module "$INPUT_MODULE_PATH" \
-          --xsd-dir "$XSD_DIR" \
+          --bannerlord-version "$INPUT_BANNERLORD_VERSION" \
           "${EXTRA_ARGS[@]}"
 
         EXIT_CODE=$?
