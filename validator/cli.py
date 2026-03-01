@@ -103,15 +103,6 @@ Examples
         ),
     )
     parser.add_argument(
-        "--game-type", "-g",
-        default=None,
-        metavar="GAME_TYPE",
-        help=(
-            "Only validate SubModule.xml nodes whose <IncludedGameTypes> contains "
-            "this value (e.g. Campaign). Has no effect on project.mbproj entries."
-        ),
-    )
-    parser.add_argument(
         "--strict",
         action="store_true",
         help="Treat XSD warnings as errors (exit 1 on warnings).",
@@ -183,7 +174,7 @@ def main(argv: list[str] | None = None) -> int:
         resolver = base_resolver
 
     try:
-        results = validate_module(module_dir, resolver, args.game_type)
+        results = validate_module(module_dir, resolver)
     except (FileNotFoundError, ValueError) as exc:
         print(f"ERROR: {exc}", file=sys.stderr)
         return 2

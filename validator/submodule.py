@@ -7,9 +7,8 @@ against the matching XSD schema.
 """
 from __future__ import annotations
 
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from pathlib import Path
-from typing import Optional
 from xml.etree import ElementTree as ET
 
 from .core import validate_file_refs
@@ -21,7 +20,6 @@ from .xsd_resolver import XsdResolver
 class SubModuleEntry:
     xml_id: str
     path: str
-    game_types: list[str] = field(default_factory=list)  # empty = all game types
 
 
 def parse_submodule(submodule_path: Path) -> list[SubModuleEntry]:
@@ -40,11 +38,7 @@ def parse_submodule(submodule_path: Path) -> list[SubModuleEntry]:
         path = (name_el.get("path") or "").strip()
         if not xml_id or not path:
             continue
-        game_types = [
-            gt.get("value", "")
-            for gt in xml_node.findall(".//IncludedGameTypes/GameType")
-        ]
-        entries.append(SubModuleEntry(xml_id=xml_id, path=path, game_types=game_types))
+        entries.append(SubModuleEntry(xml_id=xml_id, path=path))
 
     return entries
 
@@ -76,7 +70,6 @@ def resolve_submodule_files(module_dir: Path, path_value: str) -> list[Path]:
 def validate_module(
     module_dir: Path,
     resolver: XsdResolver,
-    game_type_filter: Optional[str] = None,
 ) -> list[ValidationResult]:
     """
     Validate all XML files declared in a module's SubModule.xml.
@@ -89,13 +82,6 @@ def validate_module(
 
     results: list[ValidationResult] = []
     for entry in parse_submodule(submodule_path):
-        if (
-            game_type_filter
-            and entry.game_types
-            and game_type_filter not in entry.game_types
-        ):
-            continue
-
         xml_files = resolve_submodule_files(module_dir, entry.path)
         expected = module_dir / "ModuleData" / entry.path
         results.extend(
