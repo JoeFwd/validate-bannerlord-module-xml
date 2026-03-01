@@ -1,0 +1,10 @@
+[project]
+name = "bannerlord-xml-validator"
+version = "1.0.0"   # managed by python-semantic-release — do not edit manually
+
+[tool.semantic_release]
+version_toml            = ["pyproject.toml:project.version"]
+tag_format              = "v{version}"
+upload_to_pypi          = false
+build_command           = ""
+commit_message          = "chore(release): v{version} [skip ci]"

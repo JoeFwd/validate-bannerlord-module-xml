@@ -1,0 +1,60 @@
+name: Release
+
+# Trigger: merge/rebase develop → main
+#
+# What this does automatically:
+#   1. PSR reads commits since the last tag
+#   2. Determines the version bump from conventional commit types:
+#        fix:   → patch   (v1.0.0 → v1.0.1)
+#        feat:  → minor   (v1.0.0 → v1.1.0)
+#        feat!: → major   (v1.0.0 → v2.0.0)
+#   3. Bumps version in pyproject.toml, commits it, creates tag + GitHub Release
+#   4. Force-moves the floating major tag (v1) so callers using @v1 auto-update
+#
+# If no releasable commits are found, the workflow exits without creating a release.
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  release:
+    name: Publish release
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write   # push version-bump commit, tags, and GitHub Release
+    concurrency:
+      group: release
+      cancel-in-progress: false   # never cancel an in-flight release
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0          # PSR needs full history to find the previous tag
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Install python-semantic-release
+        run: pip install python-semantic-release
+
+      - name: Run semantic release
+        id: release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          semantic-release version
+          semantic-release publish
+
+      - name: Update floating major tag
+        # Only runs when PSR actually created a new release
+        if: steps.release.outputs.released == 'true'
+        run: |
+          TAG=$(git describe --tags --abbrev=0)
+          MAJOR="${TAG%%.*}"
+          git tag -fa "$MAJOR" -m "Release $TAG"
+          git push origin "$MAJOR" --force
