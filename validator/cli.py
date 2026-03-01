@@ -22,30 +22,24 @@ _XSLT_PATH = Path(__file__).parent.parent / "XmlSchemas" / "expanded-api.xslt"
 _BUNDLED_XSD_ROOT = Path(__file__).parent.parent / "XmlSchemas"
 
 
+_SUPPORTED_VERSIONS = {"1.2", "1.3"}
+
+
 def _resolve_bundled_xsd_dir(version: str) -> Path:
     """
     Resolve the bundled XSD directory for a given Bannerlord version string.
 
-    Accepts formats like '1.3', 'v1.3', '1.3.8', 'v1.3.8'.
-    Only the major.minor portion is used; the patch component is ignored.
-    Raises ValueError if the format is unrecognised or the directory does not exist.
+    Accepts only '1.2' or '1.3'.
+    Raises ValueError if the version is not supported or the directory does not exist.
     """
-    v = version.lstrip("v")
-    parts = v.split(".")
-    if len(parts) < 2:
+    if version not in _SUPPORTED_VERSIONS:
         raise ValueError(
-            f"Cannot parse Bannerlord version '{version}'. "
-            "Expected format: '1.3', 'v1.3', '1.3.8', etc."
+            f"Unsupported bannerlord-version '{version}'. "
+            f"Accepted values: {', '.join(sorted(_SUPPORTED_VERSIONS))}"
         )
-    major_minor = f"{parts[0]}.{parts[1]}"
-    xsd_dir = _BUNDLED_XSD_ROOT / f"v{major_minor}"
+    xsd_dir = _BUNDLED_XSD_ROOT / f"v{version}"
     if not xsd_dir.is_dir():
-        available = sorted(p.name for p in _BUNDLED_XSD_ROOT.iterdir() if p.is_dir() and p.name.startswith("v"))
-        raise ValueError(
-            f"bannerlord-version '{version}' resolved to 'v{major_minor}' "
-            f"but no matching XSD directory was found.\n"
-            f"Available versions: {', '.join(available) or '(none)'}"
-        )
+        raise ValueError(f"XSD directory not found: {xsd_dir}")
     return xsd_dir
 
 
@@ -96,16 +90,7 @@ Examples
         required=True,
         metavar="VERSION",
         dest="bannerlord_version",
-        help=(
-            "Target Bannerlord version. Selects which bundled XSD set to use. "
-            "Accepts '1.2', '1.3', 'v1.2', 'v1.3', or a full patch like 'v1.3.8' "
-            "(the patch component is ignored — only major.minor matters)."
-        ),
-    )
-    parser.add_argument(
-        "--strict",
-        action="store_true",
-        help="Treat XSD warnings as errors (exit 1 on warnings).",
+        help="Target Bannerlord version. Accepted values: '1.2', '1.3'.",
     )
     parser.add_argument(
         "--json",
@@ -189,7 +174,7 @@ def main(argv: list[str] | None = None) -> int:
     all_results: dict[str, list[ValidationResult]] = {module_id: results}
 
     if args.github_annotations:
-        emit_github_annotations(all_results, strict=args.strict)
+        emit_github_annotations(all_results)
 
     if args.json_output:
         print(
@@ -199,10 +184,10 @@ def main(argv: list[str] | None = None) -> int:
             )
         )
     else:
-        print_human(all_results, verbose=args.verbose, strict=args.strict, base=Path.cwd())
+        print_human(all_results, verbose=args.verbose, base=Path.cwd())
 
     has_errors = any(
-        r.errors or (args.strict and r.warnings)
+        r.errors
         for rs in all_results.values()
         for r in rs
         if not r.skipped

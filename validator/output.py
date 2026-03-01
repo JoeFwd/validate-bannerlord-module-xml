@@ -23,7 +23,6 @@ def _relative_path(path: str, base: Path) -> str:
 
 def emit_github_annotations(
     all_results: dict[str, list[ValidationResult]],
-    strict: bool,
 ) -> None:
     """
     Emit GitHub Actions workflow commands so errors appear as inline annotations
@@ -37,7 +36,7 @@ def emit_github_annotations(
             if r.skipped:
                 continue
             for issue in r.issues:
-                cmd = "error" if (issue.severity == "error" or strict) else "warning"
+                cmd = issue.severity
                 try:
                     file_path = (
                         str(Path(r.xml_path).relative_to(workspace))
@@ -56,7 +55,6 @@ def emit_github_annotations(
 def print_human(
     all_results: dict[str, list[ValidationResult]],
     verbose: bool,
-    strict: bool,
     base: Path,
 ) -> None:
     for module_id, results in all_results.items():
@@ -89,7 +87,7 @@ def print_human(
                 for w in r.warnings:
                     print(f"          WARN:  {w}")
             elif r.warnings:
-                if verbose or strict:
+                if verbose:
                     print(f"  WARN  {label}")
                     for w in r.warnings:
                         print(f"          WARN:  {w}")
