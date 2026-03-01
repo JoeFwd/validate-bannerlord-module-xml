@@ -14,7 +14,7 @@ from pathlib import Path
 from .backends import is_lxml_available
 from .mbproj import validate_mbproj
 from .models import ValidationResult
-from .output import emit_github_annotations, print_human
+from .output import print_human
 from .submodule import validate_module
 from .xsd_resolver import DirectoryXsdResolver, XsltPatchedXsdResolver
 
@@ -104,15 +104,6 @@ Examples
         help="Show passing and skipped files in addition to failures.",
     )
     parser.add_argument(
-        "--github-annotations",
-        action="store_true",
-        dest="github_annotations",
-        help=(
-            "Emit GitHub Actions ::error/::warning commands for inline PR annotations. "
-            "Automatically set by the composite action."
-        ),
-    )
-    parser.add_argument(
         "--bannerlord-xml-expanded-api",
         action="store_true",
         dest="expanded_api",
@@ -172,9 +163,6 @@ def main(argv: list[str] | None = None) -> int:
             return 2
 
     all_results: dict[str, list[ValidationResult]] = {module_id: results}
-
-    if args.github_annotations:
-        emit_github_annotations(all_results)
 
     if args.json_output:
         print(

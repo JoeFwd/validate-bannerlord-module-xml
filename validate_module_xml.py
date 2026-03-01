@@ -23,9 +23,6 @@ Usage:
   # Validate SubModule.xml + ModuleData/project.mbproj
   python validate_module_xml.py --module ../DellarteDellaGuerraMap --xsd-dir XmlSchemas/v1.3 --mbproj
 
-  # GitHub Actions annotations (used by the composite action)
-  python validate_module_xml.py --module . --xsd-dir XmlSchemas/v1.3 --github-annotations
-
 Exit codes:
   0 — all files valid (or no declarations found)
   1 — one or more files failed validation
