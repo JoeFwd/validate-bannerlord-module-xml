@@ -10,11 +10,10 @@ branding:
   color: 'green'
 
 inputs:
-  module-paths:
+  module-path:
     description: >
-      Newline-separated list of module directory paths to validate.
-      Each path must point to a directory containing SubModule.xml.
-      Paths are relative to $GITHUB_WORKSPACE (the calling repo root).
+      Path to the module directory to validate (must contain SubModule.xml).
+      Relative to $GITHUB_WORKSPACE (the calling repo root).
     required: true
   bannerlord-version:
     description: >
@@ -33,6 +32,10 @@ inputs:
     default: ''
   strict:
     description: 'Treat XSD warnings as errors (fail the step on warnings).'
+    required: false
+    default: 'false'
+  validate-mbproj:
+    description: 'Also validate ModuleData/project.mbproj for each module.'
     required: false
     default: 'false'
   verbose:
@@ -89,32 +92,21 @@ runs:
       id: validate
       shell: bash
       env:
-        INPUT_MODULE_PATHS: ${{ inputs.module-paths }}
+        INPUT_MODULE_PATH: ${{ inputs.module-path }}
         INPUT_GAME_TYPE:    ${{ inputs.game-type }}
-        INPUT_STRICT:       ${{ inputs.strict }}
-        INPUT_VERBOSE:      ${{ inputs.verbose }}
+        INPUT_STRICT:         ${{ inputs.strict }}
+        INPUT_VALIDATE_MBPROJ: ${{ inputs.validate-mbproj }}
+        INPUT_VERBOSE:        ${{ inputs.verbose }}
         XSD_DIR:            ${{ steps.xsd.outputs.xsd_dir }}
       run: |
-        # Build --module arguments from the multiline input
-        MODULE_ARGS=()
-        while IFS= read -r line; do
-          line="${line#"${line%%[![:space:]]*}"}"  # ltrim
-          line="${line%"${line##*[![:space:]]}"}"  # rtrim
-          [ -n "$line" ] && MODULE_ARGS+=(--module "$line")
-        done <<< "$INPUT_MODULE_PATHS"
-
-        if [ ${#MODULE_ARGS[@]} -eq 0 ]; then
-          echo "::error::No module paths provided to bannerlord-xml-validator."
-          exit 2
-        fi
-
         EXTRA_ARGS=(--github-annotations)
-        [ "$INPUT_STRICT"  = "true" ] && EXTRA_ARGS+=(--strict)
-        [ "$INPUT_VERBOSE" = "true" ] && EXTRA_ARGS+=(--verbose)
-        [ -n "$INPUT_GAME_TYPE" ]      && EXTRA_ARGS+=(--game-type "$INPUT_GAME_TYPE")
+        [ "$INPUT_STRICT"          = "true" ] && EXTRA_ARGS+=(--strict)
+        [ "$INPUT_VALIDATE_MBPROJ" = "true" ] && EXTRA_ARGS+=(--mbproj)
+        [ "$INPUT_VERBOSE"         = "true" ] && EXTRA_ARGS+=(--verbose)
+        [ -n "$INPUT_GAME_TYPE" ]              && EXTRA_ARGS+=(--game-type "$INPUT_GAME_TYPE")
 
         PYTHONPATH="${{ github.action_path }}" python -m validator \
-          "${MODULE_ARGS[@]}" \
+          --module "$INPUT_MODULE_PATH" \
           --xsd-dir "$XSD_DIR" \
           "${EXTRA_ARGS[@]}"
 

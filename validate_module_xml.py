@@ -9,25 +9,19 @@ Supports two declaration sources:
                    Path is relative to <ModuleDir>/ModuleData/.
                    Supports directory expansion (all *.xml inside) and game-type filtering.
 
-  project.mbproj — <file id="..." name="..." type="..."/>
-                   Path (name) is relative to the module root (parent of the mbproj's dir).
+  project.mbproj — <file id="..." name="..." type="..."/>  (opt-in via --mbproj)
+                   Must be at ModuleData/project.mbproj inside each module directory.
                    No directory expansion; no game-type filtering.
 
 Both validators share the same XSD lookup rule:
   <xsd_dir>/<id>.xsd
 
 Usage:
-  # Validate SubModule.xml + auto-detect ModuleData/project.mbproj
+  # Validate SubModule.xml only
   python validate_module_xml.py --module ../DellarteDellaGuerraMap --xsd-dir XmlSchemas/v1.3
 
-  # Non-standard mbproj location (e.g. RBMXML/)
-  python validate_module_xml.py \\
-      --module ../DellarteDellaGuerraRBM \\
-      --mbproj ../DellarteDellaGuerraRBM/RBMXML/project.mbproj \\
-      --xsd-dir XmlSchemas/v1.3
-
-  # mbproj only, no SubModule.xml needed
-  python validate_module_xml.py --mbproj path/to/project.mbproj --xsd-dir XmlSchemas/v1.3
+  # Validate SubModule.xml + ModuleData/project.mbproj
+  python validate_module_xml.py --module ../DellarteDellaGuerraMap --xsd-dir XmlSchemas/v1.3 --mbproj
 
   # GitHub Actions annotations (used by the composite action)
   python validate_module_xml.py --module . --xsd-dir XmlSchemas/v1.3 --github-annotations
