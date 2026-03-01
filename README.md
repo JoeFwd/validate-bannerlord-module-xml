@@ -9,8 +9,12 @@ pull-request annotations for every schema violation.
 
 ## Bundled schemas
 
-`XmlSchemas/` contains the 49 XSD files shipped with **Bannerlord v1.3**.
-Update this directory when targeting a different game version.
+| Directory | Game version | XSD count |
+|-----------|-------------|-----------|
+| `XmlSchemas/v1.2/` | Bannerlord v1.2 | 29 |
+| `XmlSchemas/v1.3/` | Bannerlord v1.3 | 49 |
+
+Update the relevant subdirectory when a new game version adds or changes schemas.
 
 ## Usage
 
@@ -18,6 +22,7 @@ Update this directory when targeting a different game version.
 - name: Validate XML
   uses: <your-org>/bannerlord-xml-validator@v1
   with:
+    bannerlord-version: 'v1.3'
     module-paths: |
       ${{ github.workspace }}/DellarteDellaGuerraMap
       ${{ github.workspace }}/DellarteDellaGuerra
@@ -27,7 +32,8 @@ Update this directory when targeting a different game version.
 
 | Input | Required | Default | Description |
 |-------|----------|---------|-------------|
-| `module-paths` | yes | — | Newline-separated list of module directory paths (each must contain `SubModule.xml`) |
+| `module-paths` | yes | — | Newline-separated module directory paths (each must contain `SubModule.xml`) |
+| `bannerlord-version` | no | `v1.3` | Target game version. Accepts `v1.2`, `v1.3`, `1.3`, `v1.3.8` — only major.minor matters |
 | `game-type` | no | *(all)* | Only validate XML nodes included for this game type (e.g. `Campaign`) |
 | `strict` | no | `false` | Treat XSD warnings as errors |
 | `verbose` | no | `false` | Show passing and skipped files in the log |
@@ -37,19 +43,6 @@ Update this directory when targeting a different game version.
 | Output | Description |
 |--------|-------------|
 | `result` | `"pass"` or `"fail"` |
-
-## Local usage
-
-The bundled `validate_module_xml.py` can also be run locally:
-
-```bash
-pip install lxml
-
-python validate_module_xml.py \
-  --module /path/to/DellarteDellaGuerraMap \
-  --xsd-dir XmlSchemas/ \
-  --verbose
-```
 
 ## Full workflow example
 
@@ -69,8 +62,27 @@ jobs:
       - name: Validate XML
         uses: <your-org>/bannerlord-xml-validator@v1
         with:
+          bannerlord-version: 'v1.3'
           module-paths: |
             ${{ github.workspace }}/DellarteDellaGuerraMap
           game-type: Campaign
           verbose: 'true'
+```
+
+## Local usage
+
+```bash
+pip install lxml
+
+# v1.3 schemas
+python validate_module_xml.py \
+  --module /path/to/DellarteDellaGuerraMap \
+  --xsd-dir XmlSchemas/v1.3 \
+  --verbose
+
+# v1.2 schemas
+python validate_module_xml.py \
+  --module /path/to/DellarteDellaGuerraMap \
+  --xsd-dir XmlSchemas/v1.2 \
+  --verbose
 ```
