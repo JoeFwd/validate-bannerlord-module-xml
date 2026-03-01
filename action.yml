@@ -113,7 +113,7 @@ runs:
         [ "$INPUT_VERBOSE" = "true" ] && EXTRA_ARGS+=(--verbose)
         [ -n "$INPUT_GAME_TYPE" ]      && EXTRA_ARGS+=(--game-type "$INPUT_GAME_TYPE")
 
-        python "${{ github.action_path }}/validate_module_xml.py" \
+        PYTHONPATH="${{ github.action_path }}" python -m validator \
           "${MODULE_ARGS[@]}" \
           --xsd-dir "$XSD_DIR" \
           "${EXTRA_ARGS[@]}"
