@@ -17,7 +17,7 @@ Bundled schema sets:
 | Version | Schema count |
 |---------|-------------|
 | v1.2    | 29 XSD files |
-| v1.3    | 49 XSD files |
+| 1.3    | 49 XSD files |
 
 ---
 
@@ -54,7 +54,7 @@ python -m validator --module <MODULE_DIR> --bannerlord-version <VERSION> [OPTION
 ### Examples
 
 ```bash
-# Validate a module against v1.3 schemas
+# Validate a module against 1.3 schemas
 python -m validator \
     --module ../DellarteDellaGuerraMap \
     --bannerlord-version 1.3
@@ -88,8 +88,6 @@ python -m validator \
 | `1` | One or more schema violations found. |
 | `2` | Fatal error (missing SubModule.xml, unsupported version, bad mbproj, etc.). |
 
----
-
 ## GitHub Action
 
 The action is a composite action that sets up Python, installs `lxml`, and runs the validator so that every schema violation appears in the step log.
@@ -100,13 +98,11 @@ Add a step referencing this action in your existing workflow file (`.github/work
 
 ```yaml
 - name: Validate module XML
-  uses: <org>/bannerlord-xml-validator@v1
+  uses: JoeFwd/bannerlord-xml-validator@<version>
   with:
     module-path: MyModule          # relative to the repo root
-    bannerlord-version: 'v1.3'
+    bannerlord-version: '1.3'
 ```
-
-Replace `<org>` with the GitHub organisation or user that hosts this action repository.
 
 ### Full example workflow
 
@@ -125,10 +121,10 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Validate module XML
-        uses: <org>/bannerlord-xml-validator@v1
+        uses: JoeFwd/bannerlord-xml-validator@<version>
         with:
           module-path: MyModule
-          bannerlord-version: 'v1.3'
+          bannerlord-version: '1.3'
 ```
 
 ### Action inputs
@@ -136,7 +132,7 @@ jobs:
 | Input | Required | Default | Description |
 |---|---|---|---|
 | `module-path` | yes | — | Path to the module directory (must contain `SubModule.xml`). Relative to the repository root (`$GITHUB_WORKSPACE`). |
-| `bannerlord-version` | no | `v1.3` | Target Bannerlord version. Accepts `v1.2`, `v1.3`, `1.2`, `1.3`, or a full patch string like `v1.3.8` (patch component is ignored). |
+| `bannerlord-version` | no | `1.3` | Target Bannerlord version. Accepts `1.2`, `1.3` |
 | `validate-mbproj` | no | `false` | Also validate `ModuleData/project.mbproj`. |
 | `bannerlord-xml-expanded-api` | no | `false` | Extend schemas to allow the expanded equipment API attributes (`siege`, `battle`, `pool` on `EquipmentRoster`/`EquipmentSet`). No hand-edited schema copies needed. |
 | `verbose` | no | `false` | Show passing and skipped files in the step log. |
@@ -152,10 +148,10 @@ jobs:
 ```yaml
 - name: Validate module XML
   id: xml-check
-  uses: <org>/bannerlord-xml-validator@v1
+  uses: JoeFwd/bannerlord-xml-validator@<version>
   with:
     module-path: MyModule
-    bannerlord-version: 'v1.3'
+    bannerlord-version: '1.3'
 
 - name: Report outcome
   if: always()
@@ -172,8 +168,8 @@ steps:
   - uses: actions/checkout@v4
 
   - name: Validate ${{ matrix.module }}
-    uses: <org>/bannerlord-xml-validator@v1
+    uses: JoeFwd/bannerlord-xml-validator@<version>
     with:
       module-path: ${{ matrix.module }}
-      bannerlord-version: 'v1.3'
+      bannerlord-version: '1.3'
 ```
