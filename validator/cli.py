@@ -1,8 +1,8 @@
 """
 CLI entry point: argument parser and main().
 
-Orchestrates the SubModule.xml and project.mbproj validation passes,
-merges results by module name, and delegates output to the output module.
+Orchestrates the SubModule.xml and project.mbproj validation passes
+for a single module, then delegates output to the output module.
 """
 from __future__ import annotations
 
@@ -16,6 +16,9 @@ from .mbproj import validate_mbproj
 from .models import ValidationResult
 from .output import emit_github_annotations, print_human
 from .submodule import validate_module
+from .xsd_resolver import DirectoryXsdResolver, XsltPatchedXsdResolver
+
+_XSLT_PATH = Path(__file__).parent.parent / "XmlSchemas" / "expanded-api.xslt"
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -34,53 +37,35 @@ XSD schemas
 
 Examples
 --------
-  # Module with SubModule.xml (mbproj auto-detected if present)
+  # Validate SubModule.xml only
   python validate_module_xml.py \\
       --module ../DellarteDellaGuerraMap \\
       --xsd-dir XmlSchemas/v1.3
 
-  # Non-standard mbproj location (e.g. RBMXML/ instead of ModuleData/)
-  python validate_module_xml.py \\
-      --module ../DellarteDellaGuerraRBM \\
-      --mbproj ../DellarteDellaGuerraRBM/RBMXML/project.mbproj \\
-      --xsd-dir XmlSchemas/v1.3
-
-  # mbproj only, no SubModule.xml
-  python validate_module_xml.py \\
-      --mbproj ../SomeModule/ModuleData/project.mbproj \\
-      --xsd-dir XmlSchemas/v1.3
-
-  # Multiple modules, Campaign-only, JSON report
+  # Validate SubModule.xml + ModuleData/project.mbproj
   python validate_module_xml.py \\
       --module ../DellarteDellaGuerraMap \\
-      --module ../DellarteDellaGuerra \\
-      --xsd-dir XmlSchemas/v1.3 --game-type Campaign --json
+      --xsd-dir XmlSchemas/v1.3 --mbproj
+
+  # Allow expanded equipment API attributes (siege/battle/pool)
+  python validate_module_xml.py \\
+      --module ../DellarteDellaGuerraMap \\
+      --xsd-dir XmlSchemas/v1.3 --bannerlord-xml-expanded-api
         """,
     )
 
     parser.add_argument(
         "--module", "-m",
-        dest="modules",
-        action="append",
-        default=[],
+        required=True,
         metavar="MODULE_DIR",
-        help=(
-            "Module directory (must contain SubModule.xml). "
-            "Also auto-validates ModuleData/project.mbproj if present. "
-            "Repeat for multiple modules."
-        ),
+        help="Module directory (must contain SubModule.xml).",
     )
     parser.add_argument(
         "--mbproj",
-        dest="mbprojs",
-        action="append",
-        default=[],
-        metavar="MBPROJ_PATH",
+        action="store_true",
         help=(
-            "Path to a project.mbproj file. Use for non-standard locations "
-            "(e.g. RBMXML/project.mbproj) or when there is no SubModule.xml. "
-            "Repeat for multiple files. Results are merged with --module results "
-            "when both share the same module root name."
+            "Also validate ModuleData/project.mbproj. "
+            "Errors if the file does not exist."
         ),
     )
     parser.add_argument(
@@ -123,6 +108,18 @@ Examples
             "Automatically set by the composite action."
         ),
     )
+    parser.add_argument(
+        "--bannerlord-xml-expanded-api",
+        action="store_true",
+        dest="expanded_api",
+        help=(
+            "Extend the XSD schemas at validation time to allow the expanded "
+            "equipment API attributes (siege, battle, pool on EquipmentRoster "
+            "and EquipmentSet) that Bannerlord supports but omits from the "
+            "shipped XSD files.  Works with any --xsd-dir version; no "
+            "hand-edited schema copies are needed.  Requires lxml."
+        ),
+    )
 
     return parser
 
@@ -130,9 +127,6 @@ Examples
 def main(argv: list[str] | None = None) -> int:
     parser = build_parser()
     args = parser.parse_args(argv)
-
-    if not args.modules and not args.mbprojs:
-        parser.error("at least one of --module or --mbproj is required")
 
     xsd_dir = Path(args.xsd_dir).resolve()
     if not xsd_dir.is_dir():
@@ -146,44 +140,33 @@ def main(argv: list[str] | None = None) -> int:
             file=sys.stderr,
         )
 
-    # Results keyed by module name; SubModule.xml and mbproj results for the
-    # same module are merged under the same key.
-    all_results: dict[str, list[ValidationResult]] = {}
-    repo_root = Path.cwd()
+    module_dir = Path(args.module).resolve()
+    module_id = module_dir.name
 
-    # --- SubModule.xml pass (also auto-detects ModuleData/project.mbproj) ---
-    for module_path in args.modules:
-        module_dir = Path(module_path).resolve()
-        module_id = module_dir.name
-
+    base_resolver = DirectoryXsdResolver(xsd_dir)
+    if args.expanded_api:
         try:
-            results = validate_module(module_dir, xsd_dir, args.game_type)
+            resolver = XsltPatchedXsdResolver(base_resolver, _XSLT_PATH)
+        except (ImportError, FileNotFoundError) as exc:
+            print(f"ERROR: {exc}", file=sys.stderr)
+            return 2
+    else:
+        resolver = base_resolver
+
+    try:
+        results = validate_module(module_dir, resolver, args.game_type)
+    except (FileNotFoundError, ValueError) as exc:
+        print(f"ERROR: {exc}", file=sys.stderr)
+        return 2
+
+    if args.mbproj:
+        try:
+            results.extend(validate_mbproj(module_dir / "ModuleData" / "project.mbproj", resolver))
         except (FileNotFoundError, ValueError) as exc:
             print(f"ERROR: {exc}", file=sys.stderr)
             return 2
 
-        default_mbproj = module_dir / "ModuleData" / "project.mbproj"
-        if default_mbproj.is_file():
-            try:
-                results.extend(validate_mbproj(default_mbproj, xsd_dir))
-            except (FileNotFoundError, ValueError) as exc:
-                print(f"ERROR: {exc}", file=sys.stderr)
-                return 2
-
-        all_results.setdefault(module_id, []).extend(results)
-
-    # --- Explicit --mbproj pass (non-standard locations) ---
-    for mbproj_str in args.mbprojs:
-        mbproj_path = Path(mbproj_str).resolve()
-        module_id = mbproj_path.parent.parent.name
-
-        try:
-            results = validate_mbproj(mbproj_path, xsd_dir)
-        except (FileNotFoundError, ValueError) as exc:
-            print(f"ERROR: {exc}", file=sys.stderr)
-            return 2
-
-        all_results.setdefault(module_id, []).extend(results)
+    all_results: dict[str, list[ValidationResult]] = {module_id: results}
 
     if args.github_annotations:
         emit_github_annotations(all_results, strict=args.strict)
@@ -196,7 +179,7 @@ def main(argv: list[str] | None = None) -> int:
             )
         )
     else:
-        print_human(all_results, verbose=args.verbose, strict=args.strict, base=repo_root)
+        print_human(all_results, verbose=args.verbose, strict=args.strict, base=Path.cwd())
 
     has_errors = any(
         r.errors or (args.strict and r.warnings)

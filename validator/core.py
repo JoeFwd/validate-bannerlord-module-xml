@@ -13,13 +13,14 @@ from typing import Optional
 
 from .backends import get_backend
 from .models import ValidationResult
+from .xsd_resolver import XsdResolver
 
 
 def validate_file_refs(
     xml_id: str,
     declared_path: str,
     xml_files: list[Path],
-    xsd_dir: Path,
+    resolver: XsdResolver,
     expected_xml_path: Optional[Path] = None,
 ) -> list[ValidationResult]:
     """
@@ -31,11 +32,11 @@ def validate_file_refs(
                            "file not found" skip messages.
         xml_files:         Resolved absolute paths to validate. Pass an empty
                            list when the declared file(s) could not be found.
-        xsd_dir:           Directory that contains the XSD files.
+        resolver:          XsdResolver that maps xml_id to the XSD Path.
         expected_xml_path: Absolute path shown in the skip result when
                            xml_files is empty. Falls back to declared_path.
     """
-    xsd_path = xsd_dir / f"{xml_id}.xsd"
+    xsd_path = resolver.resolve(xml_id)
 
     if not xml_files:
         display = str(expected_xml_path) if expected_xml_path else declared_path

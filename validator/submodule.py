@@ -14,6 +14,7 @@ from xml.etree import ElementTree as ET
 
 from .core import validate_file_refs
 from .models import ValidationResult
+from .xsd_resolver import XsdResolver
 
 
 @dataclass
@@ -74,7 +75,7 @@ def resolve_submodule_files(module_dir: Path, path_value: str) -> list[Path]:
 
 def validate_module(
     module_dir: Path,
-    xsd_dir: Path,
+    resolver: XsdResolver,
     game_type_filter: Optional[str] = None,
 ) -> list[ValidationResult]:
     """
@@ -98,7 +99,7 @@ def validate_module(
         xml_files = resolve_submodule_files(module_dir, entry.path)
         expected = module_dir / "ModuleData" / entry.path
         results.extend(
-            validate_file_refs(entry.xml_id, entry.path, xml_files, xsd_dir, expected)
+            validate_file_refs(entry.xml_id, entry.path, xml_files, resolver, expected)
         )
 
     return results

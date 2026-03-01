@@ -13,6 +13,7 @@ from xml.etree import ElementTree as ET
 
 from .core import validate_file_refs
 from .models import ValidationResult
+from .xsd_resolver import XsdResolver
 
 
 @dataclass
@@ -46,7 +47,7 @@ def parse_mbproj(mbproj_path: Path) -> list[MbProjEntry]:
 
 def validate_mbproj(
     mbproj_path: Path,
-    xsd_dir: Path,
+    resolver: XsdResolver,
 ) -> list[ValidationResult]:
     """
     Validate all XML files declared in a project.mbproj.
@@ -74,7 +75,7 @@ def validate_mbproj(
         xml_path = module_root / entry.name
         xml_files = [xml_path] if xml_path.is_file() else []
         results.extend(
-            validate_file_refs(entry.xml_id, entry.name, xml_files, xsd_dir, xml_path)
+            validate_file_refs(entry.xml_id, entry.name, xml_files, resolver, xml_path)
         )
 
     return results

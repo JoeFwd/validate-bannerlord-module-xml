@@ -42,6 +42,14 @@ inputs:
     description: 'Show passing and skipped files in the step log.'
     required: false
     default: 'false'
+  bannerlord-xml-expanded-api:
+    description: >
+      Extend the XSD schemas at validation time to allow the expanded equipment
+      API attributes (siege, battle, pool on EquipmentRoster and EquipmentSet)
+      that Bannerlord supports but omits from the shipped XSD files.
+      Works with any bannerlord-version; no hand-edited schema copies are needed.
+    required: false
+    default: 'false'
 
 outputs:
   result:
@@ -92,18 +100,20 @@ runs:
       id: validate
       shell: bash
       env:
-        INPUT_MODULE_PATH: ${{ inputs.module-path }}
-        INPUT_GAME_TYPE:    ${{ inputs.game-type }}
-        INPUT_STRICT:         ${{ inputs.strict }}
-        INPUT_VALIDATE_MBPROJ: ${{ inputs.validate-mbproj }}
-        INPUT_VERBOSE:        ${{ inputs.verbose }}
-        XSD_DIR:            ${{ steps.xsd.outputs.xsd_dir }}
+        INPUT_MODULE_PATH:                ${{ inputs.module-path }}
+        INPUT_GAME_TYPE:                  ${{ inputs.game-type }}
+        INPUT_STRICT:                     ${{ inputs.strict }}
+        INPUT_VALIDATE_MBPROJ:            ${{ inputs.validate-mbproj }}
+        INPUT_VERBOSE:                    ${{ inputs.verbose }}
+        INPUT_BANNERLORD_XML_EXPANDED_API: ${{ inputs.bannerlord-xml-expanded-api }}
+        XSD_DIR:                          ${{ steps.xsd.outputs.xsd_dir }}
       run: |
         EXTRA_ARGS=(--github-annotations)
-        [ "$INPUT_STRICT"          = "true" ] && EXTRA_ARGS+=(--strict)
-        [ "$INPUT_VALIDATE_MBPROJ" = "true" ] && EXTRA_ARGS+=(--mbproj)
-        [ "$INPUT_VERBOSE"         = "true" ] && EXTRA_ARGS+=(--verbose)
-        [ -n "$INPUT_GAME_TYPE" ]              && EXTRA_ARGS+=(--game-type "$INPUT_GAME_TYPE")
+        [ "$INPUT_STRICT"                   = "true" ] && EXTRA_ARGS+=(--strict)
+        [ "$INPUT_VALIDATE_MBPROJ"          = "true" ] && EXTRA_ARGS+=(--mbproj)
+        [ "$INPUT_VERBOSE"                  = "true" ] && EXTRA_ARGS+=(--verbose)
+        [ "$INPUT_BANNERLORD_XML_EXPANDED_API" = "true" ] && EXTRA_ARGS+=(--bannerlord-xml-expanded-api)
+        [ -n "$INPUT_GAME_TYPE" ]                        && EXTRA_ARGS+=(--game-type "$INPUT_GAME_TYPE")
 
         PYTHONPATH="${{ github.action_path }}" python -m validator \
           --module "$INPUT_MODULE_PATH" \
