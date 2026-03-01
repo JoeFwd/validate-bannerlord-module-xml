@@ -2,8 +2,7 @@ name: 'Bannerlord Module XML Validator'
 description: >
   Validates Bannerlord module XML files against the game's XSD schemas.
   Mirrors TaleWorlds.ObjectSystem.MBObjectManager.LoadXmlWithValidation.
-  Emits inline PR annotations for every schema violation.
-author: 'DellarteDellaGuerra'
+author: 'JoeFwd'
 
 branding:
   icon: 'check-circle'
@@ -18,22 +17,9 @@ inputs:
   bannerlord-version:
     description: >
       Target Bannerlord version. Selects which bundled XSD set to use.
-      Accepts 'v1.2', 'v1.3', '1.2', '1.3', or a full patch like 'v1.3.8'
-      (the patch component is ignored — only major.minor matters).
-      Available: v1.2 (29 schemas), v1.3 (49 schemas).
+      Accepts '1.2', '1.3'
     required: false
     default: 'v1.3'
-  game-type:
-    description: >
-      Only validate XML nodes whose <IncludedGameTypes> includes this value
-      (e.g. Campaign, CampaignStoryMode, CustomGame, EditorGame).
-      Leave empty to validate all nodes regardless of game type.
-    required: false
-    default: ''
-  strict:
-    description: 'Treat XSD warnings as errors (fail the step on warnings).'
-    required: false
-    default: 'false'
   validate-mbproj:
     description: 'Also validate ModuleData/project.mbproj for each module.'
     required: false
@@ -75,19 +61,14 @@ runs:
       env:
         INPUT_MODULE_PATH:                ${{ inputs.module-path }}
         INPUT_BANNERLORD_VERSION:         ${{ inputs.bannerlord-version }}
-        INPUT_GAME_TYPE:                  ${{ inputs.game-type }}
-        INPUT_STRICT:                     ${{ inputs.strict }}
         INPUT_VALIDATE_MBPROJ:            ${{ inputs.validate-mbproj }}
         INPUT_VERBOSE:                    ${{ inputs.verbose }}
         INPUT_BANNERLORD_XML_EXPANDED_API: ${{ inputs.bannerlord-xml-expanded-api }}
       run: |
-        EXTRA_ARGS=(--github-annotations)
-        [ "$INPUT_STRICT"                   = "true" ] && EXTRA_ARGS+=(--strict)
+        EXTRA_ARGS=()
         [ "$INPUT_VALIDATE_MBPROJ"          = "true" ] && EXTRA_ARGS+=(--mbproj)
         [ "$INPUT_VERBOSE"                  = "true" ] && EXTRA_ARGS+=(--verbose)
         [ "$INPUT_BANNERLORD_XML_EXPANDED_API" = "true" ] && EXTRA_ARGS+=(--bannerlord-xml-expanded-api)
-        [ -n "$INPUT_GAME_TYPE" ]                        && EXTRA_ARGS+=(--game-type "$INPUT_GAME_TYPE")
-
         PYTHONPATH="${{ github.action_path }}" python -m validator \
           --module "$INPUT_MODULE_PATH" \
           --bannerlord-version "$INPUT_BANNERLORD_VERSION" \
