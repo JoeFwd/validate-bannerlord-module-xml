@@ -1,0 +1,203 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<xs:schema xmlns=""
+  xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="Settlements">
+  <xs:element name="Settlements" msdata:IsDataSet="true">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Settlement" minOccurs="0" maxOccurs="unbounded">
+          <xs:complexType>
+            <xs:all>
+              <xs:element name="Components" minOccurs="0">
+                <xs:annotation>
+                  <xs:appinfo>
+                    <appSpecificNote>AlwaysPreferMerge</appSpecificNote>
+                  </xs:appinfo>
+                </xs:annotation>
+                <xs:complexType>
+                  <xs:choice minOccurs="0">
+                    <xs:element name="Hideout" minOccurs="0" maxOccurs="unbounded">
+                      <xs:complexType>
+                        <xs:attribute name="id" type="xs:string" use="required"/>
+                        <xs:attribute name="map_icon" type="xs:string" use="required"/>
+                        <xs:attribute name="background_crop_position" type="xs:decimal" use="required"/>
+                        <xs:attribute name="background_mesh" type="xs:string" use="required"/>
+                        <xs:attribute name="wait_mesh" type="xs:string" use="required"/>
+                        <xs:attribute name="gate_rotation" type="xs:decimal" use="required"/>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="Village" minOccurs="0" maxOccurs="unbounded">
+                      <xs:complexType>
+                        <xs:attribute name="id" type="xs:string" use="required"/>
+                        <xs:attribute name="village_type" type="xs:string" use="required"/>
+                        <xs:attribute name="gate_rotation" type="xs:decimal" use="optional"/>
+                        <xs:attribute name="hearth" type="xs:string" use="required"/>
+                        <xs:attribute name="bound" use="required">
+                          <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                              <xs:pattern value="Settlement\..+"/>
+                            </xs:restriction>
+                          </xs:simpleType>
+                        </xs:attribute>
+                        <xs:attribute name="background_crop_position" type="xs:decimal" use="required"/>
+                        <xs:attribute name="background_mesh" type="xs:string" use="required"/>
+                        <xs:attribute name="castle_background_mesh" type="xs:string" use="required"/>
+                        <xs:attribute name="wait_mesh" type="xs:string" use="required"/>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="Town" minOccurs="0" maxOccurs="unbounded">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="Buildings" minOccurs="0" maxOccurs="1">
+                            <xs:annotation>
+                              <xs:appinfo>
+                                <appSpecificNote>AlwaysPreferMerge</appSpecificNote>
+                              </xs:appinfo>
+                            </xs:annotation>
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="Building" minOccurs="0" maxOccurs="unbounded">
+                                  <xs:complexType>
+                                    <xs:attribute name="id" type="xs:string" use="required"/>
+                                    <xs:attribute name="level" type="xs:decimal" use="optional"/>
+                                  </xs:complexType>
+                                </xs:element>
+                              </xs:sequence>
+                            </xs:complexType>
+                            <!-- id attribute is unique for Building -->
+                            <xs:unique name="Building_unique_attribute">
+                              <xs:selector xpath="Building"/>
+                              <xs:field xpath="@id"/>
+                            </xs:unique>
+                          </xs:element>
+                        </xs:sequence>
+                        <xs:attribute name="id" type="xs:string" use="required"/>
+                        <xs:attribute name="is_castle" type="xs:boolean" use="required"/>
+                        <xs:attribute name="background_crop_position" type="xs:decimal" use="required"/>
+                        <xs:attribute name="background_mesh" type="xs:string" use="required"/>
+                        <xs:attribute name="wait_mesh" type="xs:string" use="required"/>
+                        <xs:attribute name="gate_rotation" type="xs:decimal" use="required"/>
+                        <xs:attribute name="prosperity" type="xs:string" use="optional"/>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="CustomSettlementComponent" minOccurs="0" maxOccurs="unbounded">
+                      <xs:complexType>
+                        <xs:attribute name="id" type="xs:string" use="required"/>
+                        <xs:attribute name="component_name" type="xs:string" use="required"/>
+                        <xs:anyAttribute processContents="skip"/>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:choice>
+                </xs:complexType>
+                <!-- id attribute is unique for Hideout -->
+                <xs:unique name="Hideout_unique_attribute">
+                  <xs:selector xpath="Hideout"/>
+                  <xs:field xpath="@id"/>
+                </xs:unique>
+
+                <!-- id attribute is unique for Village -->
+                <xs:unique name="Village_unique_attribute">
+                  <xs:selector xpath="Village"/>
+                  <xs:field xpath="@id"/>
+                </xs:unique>
+
+                <!-- id attribute is unique for Town -->
+                <xs:unique name="Town_unique_attribute">
+                  <xs:selector xpath="Town"/>
+                  <xs:field xpath="@id"/>
+                </xs:unique>
+
+                <!-- id attribute is unique for CustomSettlementComponent -->
+                <xs:unique name="CustomSettlementComponent_unique_attribute">
+                  <xs:selector xpath="CustomSettlementComponent"/>
+                  <xs:field xpath="@id"/>
+                </xs:unique>
+              </xs:element>
+              <xs:element name="Locations" minOccurs="0">
+                <xs:annotation>
+                  <xs:appinfo>
+                    <appSpecificNote>AlwaysPreferMerge</appSpecificNote>
+                  </xs:appinfo>
+                </xs:annotation>
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Location" minOccurs="0" maxOccurs="unbounded">
+                      <xs:complexType>
+                        <xs:attribute name="id" type="xs:string" use="required"/>
+                        <xs:attribute name="scene_name" type="xs:string" use="optional"/>
+                        <xs:attribute name="scene_name_1" type="xs:string" use="optional"/>
+                        <xs:attribute name="scene_name_2" type="xs:string" use="optional"/>
+                        <xs:attribute name="scene_name_3" type="xs:string" use="optional"/>
+                        <xs:attribute name="max_prosperity" type="xs:decimal" use="optional"/>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="complex_template" type="xs:string" use="required"/>
+                </xs:complexType>
+                <!-- id attribute is unique for Location -->
+                <xs:unique name="Location_unique_attribute">
+                  <xs:selector xpath="Location"/>
+                  <xs:field xpath="@id"/>
+                </xs:unique>
+              </xs:element>
+              <xs:element name="CommonAreas" minOccurs="0">
+                <xs:annotation>
+                  <xs:appinfo>
+                    <appSpecificNote>AlwaysPreferMerge</appSpecificNote>
+                  </xs:appinfo>
+                </xs:annotation>
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Area" minOccurs="0" maxOccurs="unbounded">
+                      <xs:complexType>
+                        <xs:attribute name="type" type="xs:string" use="required"/>
+                        <xs:attribute name="name" type="xs:string" use="required"/>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+                <!-- type attribute is unique for Area -->
+                <xs:unique name="Area_unique_attribute">
+                  <xs:selector xpath="Area"/>
+                  <xs:field xpath="@type"/>
+                </xs:unique>
+              </xs:element>
+            </xs:all>
+            <xs:attribute name="owner" use="optional">
+              <xs:simpleType>
+                <xs:restriction base="xs:string">
+                  <xs:pattern value="Faction\..+"/>
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="id" type="xs:string" use="required"/>
+            <xs:attribute name="name" type="xs:string" use="required"/>
+            <xs:attribute name="posX" type="xs:decimal" use="required"/>
+            <xs:attribute name="posY" type="xs:decimal" use="required"/>
+            <xs:attribute name="gate_posX" type="xs:decimal" use="optional"/>
+            <xs:attribute name="gate_posY" type="xs:decimal" use="optional"/>
+            <xs:attribute name="port_posX" type="xs:decimal" use="optional"/>
+            <xs:attribute name="port_posY" type="xs:decimal" use="optional"/>
+            <xs:attribute name="culture" use="optional">
+              <xs:simpleType>
+                <xs:restriction base="xs:string">
+                  <xs:pattern value="Culture\..+"/>
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="gate_rotation" type="xs:decimal" use="optional"/>
+            <xs:attribute name="type" type="xs:string" use="optional"/>
+            <xs:attribute name="text" type="xs:string" use="optional"/>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+
+    <!-- id attribute is unique for Settlement -->
+    <xs:unique name="Settlement_unique_attribute">
+      <xs:selector xpath="Settlement"/>
+      <xs:field xpath="@id"/>
+    </xs:unique>
+
+  </xs:element>
+</xs:schema>

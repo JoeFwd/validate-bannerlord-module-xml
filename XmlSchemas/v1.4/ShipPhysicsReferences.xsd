@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="ShipPhysicsReferences"
+  xmlns=""
+  xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+  <xs:simpleType name="indexType">
+    <xs:restriction base="xs:int">
+      <xs:minInclusive value="0"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="positiveIntType">
+    <xs:restriction base="xs:int">
+      <xs:minExclusive value="0"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="positiveFloatType">
+    <xs:restriction base="xs:float">
+      <xs:minExclusive value="0.0"/>
+    </xs:restriction>
+  </xs:simpleType>
+<xs:simpleType name="CommaSeparatedFloatTriplet">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="-?\d+(\.\d+)?, -?\d+(\.\d+)?, -?\d+(\.\d+)?"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="positiveVectorType">
+    <xs:attribute name="x" type="positiveFloatType" use="required"/>
+    <xs:attribute name="y" type="positiveFloatType"/>
+    <xs:attribute name="z" type="positiveFloatType"/>
+  </xs:complexType>
+  <xs:element name="ShipPhysicsReferences" msdata:IsDataSet="true">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="ShipPhysicsReference">
+          <xs:complexType>
+            <xs:all>
+              <!-- Linear drag term of the ship along six directions. Controls the magnitude of the linear drag force.
+								 Must be defined if drag terms are not auto computed-->
+              <xs:element name="linear_drag_term" minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                  <xs:appinfo>
+                    <appSpecificNote>AlwaysPreferMerge</appSpecificNote>
+                  </xs:appinfo>
+                </xs:annotation>
+                <xs:complexType>
+                  <xs:attribute name="right" type="positiveFloatType" use="required"/>
+                  <xs:attribute name="left" type="positiveFloatType" use="required"/>
+                  <xs:attribute name="forward" type="positiveFloatType" use="required"/>
+                  <xs:attribute name="backward" type="positiveFloatType" use="required"/>
+                  <xs:attribute name="up" type="positiveFloatType" use="required"/>
+                  <xs:attribute name="down" type="positiveFloatType" use="required"/>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="linear_damping_term" minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                  <xs:appinfo>
+                    <appSpecificNote>AlwaysPreferMerge</appSpecificNote>
+                  </xs:appinfo>
+                </xs:annotation>
+                <xs:complexType>
+                  <xs:attribute name="right" type="positiveFloatType" use="required"/>
+                  <xs:attribute name="left" type="positiveFloatType" use="required"/>
+                  <xs:attribute name="forward" type="positiveFloatType" use="required"/>
+                  <xs:attribute name="backward" type="positiveFloatType" use="required"/>
+                  <xs:attribute name="up" type="positiveFloatType" use="required"/>
+                  <xs:attribute name="down" type="positiveFloatType" use="required"/>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="constant_linear_damping_term" minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                  <xs:appinfo>
+                    <appSpecificNote>AlwaysPreferMerge</appSpecificNote>
+                  </xs:appinfo>
+                </xs:annotation>
+                <xs:complexType>
+                  <xs:attribute name="right" type="positiveFloatType" use="required"/>
+                  <xs:attribute name="left" type="positiveFloatType" use="required"/>
+                  <xs:attribute name="forward" type="positiveFloatType" use="required"/>
+                  <xs:attribute name="backward" type="positiveFloatType" use="required"/>
+                  <xs:attribute name="up" type="positiveFloatType" use="required"/>
+                  <xs:attribute name="down" type="positiveFloatType" use="required"/>
+                </xs:complexType>
+              </xs:element>
+            </xs:all>
+            <xs:attribute name="id" type="xs:string" use="required"/>
+            <!-- Ship's mass (kilogram). If not defined then this is read from ship's prefab -->
+            <xs:attribute name="reference_mass" type="positiveFloatType" use="required"/>
+            <xs:attribute name="reference_inertia" type="CommaSeparatedFloatTriplet" use="required"/>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <!-- id attribute is unique for ShipPhysicsReference -->
+    <xs:unique name="ShipPhysicsReference_unique_attribute">
+      <xs:selector xpath="ShipPhysicsReference"/>
+      <xs:field xpath="@id"/>
+    </xs:unique>
+  </xs:element>
+</xs:schema>

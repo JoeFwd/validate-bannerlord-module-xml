@@ -22,22 +22,30 @@ _XSLT_PATH = Path(__file__).parent.parent / "XmlSchemas" / "expanded-api.xslt"
 _BUNDLED_XSD_ROOT = Path(__file__).parent.parent / "XmlSchemas"
 
 
-_SUPPORTED_VERSIONS = {"1.2", "1.3"}
+_SUPPORTED_VERSIONS = {"1.2", "1.3", "1.4"}
 
 
 def _resolve_bundled_xsd_dir(version: str) -> Path:
     """
     Resolve the bundled XSD directory for a given Bannerlord version string.
 
-    Accepts only '1.2' or '1.3'.
+    Accepts a supported major/minor version with an optional ``v`` prefix and
+    patch component, for example ``1.4``, ``v1.4``, or ``v1.4.6``.
     Raises ValueError if the version is not supported or the directory does not exist.
     """
-    if version not in _SUPPORTED_VERSIONS:
+    normalized_version = version.removeprefix("v")
+    parts = normalized_version.split(".")
+    if len(parts) < 2 or not all(part.isdigit() for part in parts):
+        normalized_version = ""
+    else:
+        normalized_version = ".".join(parts[:2])
+
+    if normalized_version not in _SUPPORTED_VERSIONS:
         raise ValueError(
             f"Unsupported bannerlord-version '{version}'. "
             f"Accepted values: {', '.join(sorted(_SUPPORTED_VERSIONS))}"
         )
-    xsd_dir = _BUNDLED_XSD_ROOT / f"v{version}"
+    xsd_dir = _BUNDLED_XSD_ROOT / f"v{normalized_version}"
     if not xsd_dir.is_dir():
         raise ValueError(f"XSD directory not found: {xsd_dir}")
     return xsd_dir
@@ -57,17 +65,17 @@ Examples
   # Validate SubModule.xml only
   python -m validator \\
       --module ../DellarteDellaGuerraMap \\
-      --bannerlord-version 1.3
+      --bannerlord-version 1.4
 
   # Validate SubModule.xml + ModuleData/project.mbproj
   python -m validator \\
       --module ../DellarteDellaGuerraMap \\
-      --bannerlord-version 1.3 --mbproj
+      --bannerlord-version 1.4 --mbproj
 
   # Allow expanded equipment API attributes (siege/battle/pool)
   python -m validator \\
       --module ../DellarteDellaGuerraMap \\
-      --bannerlord-version 1.3 --bannerlord-xml-expanded-api
+      --bannerlord-version 1.4 --bannerlord-xml-expanded-api
         """,
     )
 
@@ -90,7 +98,7 @@ Examples
         required=True,
         metavar="VERSION",
         dest="bannerlord_version",
-        help="Target Bannerlord version. Accepted values: '1.2', '1.3'.",
+        help="Target Bannerlord version. Accepted values: '1.2', '1.3', '1.4'.",
     )
     parser.add_argument(
         "--json",

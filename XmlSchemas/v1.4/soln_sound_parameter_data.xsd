@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" id="sound_parameter_data" elementFormDefault="qualified">
+  <xs:element name="base">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="parameter" minOccurs="0" maxOccurs="unbounded">
+          <xs:complexType>
+            <xs:attribute name="guid" type="xs:string" use="required"/>
+            <xs:attribute name="name" type="xs:string" use="optional"/>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+
+    <!-- guid attribute is unique for action_set -->
+    <xs:unique name="sound_parameter_unique_attribute">
+      <xs:selector xpath="parameter"/>
+      <xs:field xpath="@guid"/>
+    </xs:unique>
+
+  </xs:element>
+</xs:schema>

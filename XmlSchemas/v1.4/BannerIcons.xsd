@@ -1,0 +1,89 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" id="BannerIcons" elementFormDefault="qualified">
+  <xs:element name="base">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="BannerIconData" minOccurs="0" maxOccurs="unbounded">
+          <xs:annotation>
+            <xs:appinfo>
+              <appSpecificNote>AlwaysPreferMerge</appSpecificNote>
+            </xs:appinfo>
+          </xs:annotation>        
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="BannerIconGroup" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Background" minOccurs="0" maxOccurs="unbounded">
+                      <xs:complexType>
+                        <xs:attribute name="id" type="xs:string" use="required" />
+                        <xs:attribute name="mesh_name" type="xs:string" use="optional" />
+                        <xs:attribute name="is_base_background" type="xs:string" use="optional" />
+                      </xs:complexType>                  
+                    </xs:element>
+
+                    <xs:element name="Icon" minOccurs="0" maxOccurs="unbounded">
+                      <xs:complexType>
+                        <xs:attribute name="id" type="xs:string" use="required" />
+                        <xs:attribute name="material_name" type="xs:string" use="optional" />
+                        <xs:attribute name="texture_index" type="xs:string" use="optional" />
+                        <xs:attribute name="is_reserved" type="xs:string" use="optional" />                   
+                      </xs:complexType>                                                                
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="id" type="xs:string" use="required" />
+                  <xs:attribute name="name" type="xs:string" use="optional" />
+                  <xs:attribute name="is_pattern" type="xs:string" use="optional"/>                
+                </xs:complexType>
+
+                <xs:unique name="background_unique_attribute">
+                  <xs:selector xpath="Background" />
+                  <xs:field xpath="@id" />
+                </xs:unique>
+
+                <xs:unique name="icon_unique_attribute">
+                  <xs:selector xpath="Icon" />
+                  <xs:field xpath="@id" />
+                </xs:unique>                
+
+              </xs:element>
+              <xs:element name="BannerColors" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                  <xs:appinfo>
+                    <appSpecificNote>AlwaysPreferMerge</appSpecificNote>
+                  </xs:appinfo>
+                </xs:annotation>              
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Color" minOccurs="0" maxOccurs="unbounded">
+                      <xs:complexType>
+                        <xs:attribute name="id" type="xs:string" use="required" />
+                        <xs:attribute name="hex" type="xs:string" use="optional" />
+                        <xs:attribute name="player_can_choose_for_background" type="xs:boolean" use="optional" />
+                        <xs:attribute name="player_can_choose_for_sigil" type="xs:boolean" use="optional" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+
+                <xs:unique name="color_unique_attribute">
+                  <xs:selector xpath="Color" />
+                  <xs:field xpath="@id" />
+                </xs:unique>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+
+          <!-- id attribute is unique for BannerIconGroup-->
+          <xs:unique name="banner_icon_data_unique_attribute">
+            <xs:selector xpath="BannerIconGroup" />
+            <xs:field xpath="@id" />
+          </xs:unique>
+
+        </xs:element>
+      </xs:sequence>
+
+      <xs:attribute name="type" type="xs:string" use="optional" />
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

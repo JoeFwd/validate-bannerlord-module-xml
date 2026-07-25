@@ -18,10 +18,10 @@ Both validators share the same XSD lookup rule:
 
 Usage:
   # Validate SubModule.xml only
-  python validate_module_xml.py --module ../DellarteDellaGuerraMap --xsd-dir XmlSchemas/v1.3
+  python validate_module_xml.py --module ../DellarteDellaGuerraMap --bannerlord-version 1.4
 
   # Validate SubModule.xml + ModuleData/project.mbproj
-  python validate_module_xml.py --module ../DellarteDellaGuerraMap --xsd-dir XmlSchemas/v1.3 --mbproj
+  python validate_module_xml.py --module ../DellarteDellaGuerraMap --bannerlord-version 1.4 --mbproj
 
 Exit codes:
   0 — all files valid (or no declarations found)
