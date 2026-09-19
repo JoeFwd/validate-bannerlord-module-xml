@@ -16,6 +16,9 @@ from .models import ValidationResult
 from .xsd_resolver import XsdResolver
 
 
+_XSLT_SUFFIXES = {".xsl", ".xslt"}
+
+
 def validate_file_refs(
     xml_id: str,
     declared_path: str,
@@ -58,7 +61,10 @@ def validate_file_refs(
             xsd_id=xml_id,
             xsd_path=str(xsd_path),
         )
-        if not xsd_path.is_file():
+        if xml_path.suffix.lower() in _XSLT_SUFFIXES:
+            result.skipped = True
+            result.skip_reason = "XSLT stylesheet ignored"
+        elif not xsd_path.is_file():
             result.skipped = True
             result.skip_reason = f"XSD schema not found: {xsd_path.name}"
         else:
