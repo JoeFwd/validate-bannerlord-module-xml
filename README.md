@@ -19,6 +19,7 @@ Bundled schema sets:
 | v1.2    | 29 XSD files |
 | v1.3    | 49 XSD files |
 | v1.4    | 51 XSD files |
+| v1.5    | 53 XSD files |
 
 ---
 
@@ -41,7 +42,7 @@ python -m validator --module <MODULE_DIR> --bannerlord-version <VERSION> [OPTION
 | Argument | Description |
 |---|---|
 | `--module MODULE_DIR` / `-m` | Path to the module directory. Must contain `SubModule.xml`. |
-| `--bannerlord-version VERSION` / `-x` | Target game version. Accepted values: `1.2`, `1.3`, `1.4`. A leading `v` and patch component are accepted. |
+| `--bannerlord-version VERSION` / `-x` | Target game version. Accepted values: `1.2`, `1.3`, `1.4`, `1.5`. A leading `v` and patch component are accepted. |
 
 ### Optional arguments
 
@@ -55,30 +56,30 @@ python -m validator --module <MODULE_DIR> --bannerlord-version <VERSION> [OPTION
 ### Examples
 
 ```bash
-# Validate a module against v1.4 schemas
+# Validate a module against v1.5 schemas
 python -m validator \
     --module ../DellarteDellaGuerraMap \
-    --bannerlord-version 1.4
+    --bannerlord-version 1.5
 
 # Validate SubModule.xml + project.mbproj
 python -m validator \
     --module ../DellarteDellaGuerraMap \
-    --bannerlord-version 1.4 --mbproj
+    --bannerlord-version 1.5 --mbproj
 
 # Allow expanded equipment API attributes (siege/battle/pool)
 python -m validator \
     --module ../DellarteDellaGuerraMap \
-    --bannerlord-version 1.4 --bannerlord-xml-expanded-api
+    --bannerlord-version 1.5 --bannerlord-xml-expanded-api
 
 # Show all files including passing ones
 python -m validator \
     --module ../DellarteDellaGuerraMap \
-    --bannerlord-version 1.4 --verbose
+    --bannerlord-version 1.5 --verbose
 
 # Emit JSON for tooling integration
 python -m validator \
     --module ../DellarteDellaGuerraMap \
-    --bannerlord-version 1.4 --json
+    --bannerlord-version 1.5 --json
 ```
 
 ### Exit codes
@@ -104,7 +105,7 @@ Add a step referencing this action in your existing workflow file (`.github/work
   uses: <org>/bannerlord-xml-validator@v1
   with:
     module-path: MyModule          # relative to the repo root
-    bannerlord-version: 'v1.4'
+    bannerlord-version: 'v1.5'
 ```
 
 Replace `<org>` with the GitHub organisation or user that hosts this action repository.
@@ -129,7 +130,7 @@ jobs:
         uses: <org>/bannerlord-xml-validator@v1
         with:
           module-path: MyModule
-          bannerlord-version: 'v1.4'
+          bannerlord-version: 'v1.5'
 ```
 
 ### Action inputs
@@ -137,7 +138,7 @@ jobs:
 | Input | Required | Default | Description |
 |---|---|---|---|
 | `module-path` | yes | — | Path to the module directory (must contain `SubModule.xml`). Relative to the repository root (`$GITHUB_WORKSPACE`). |
-| `bannerlord-version` | no | `v1.4` | Target Bannerlord version. Accepts `v1.2`, `v1.3`, `v1.4`, their unprefixed forms, or a full patch string such as `v1.4.6` (patch component is ignored). |
+| `bannerlord-version` | no | `v1.5` | Target Bannerlord version. Accepts `v1.2`, `v1.3`, `v1.4`, `v1.5`, their unprefixed forms, or a full patch string such as `v1.5.7` (patch component is ignored). |
 | `validate-mbproj` | no | `false` | Also validate `ModuleData/project.mbproj`. |
 | `bannerlord-xml-expanded-api` | no | `false` | Extend schemas to allow the expanded equipment API attributes (`siege`, `battle`, `pool` on `EquipmentRoster`/`EquipmentSet`). No hand-edited schema copies needed. |
 | `verbose` | no | `false` | Show passing and skipped files in the step log. |
@@ -156,7 +157,7 @@ jobs:
   uses: <org>/bannerlord-xml-validator@v1
   with:
     module-path: MyModule
-    bannerlord-version: 'v1.4'
+    bannerlord-version: 'v1.5'
 
 - name: Report outcome
   if: always()
@@ -176,5 +177,5 @@ steps:
     uses: <org>/bannerlord-xml-validator@v1
     with:
       module-path: ${{ matrix.module }}
-      bannerlord-version: 'v1.4'
+      bannerlord-version: 'v1.5'
 ```

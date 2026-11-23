@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" id="voice_definitions" elementFormDefault="qualified">
+  <xs:element name="voice_definitions">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="voice_type_declarations" minOccurs="0" maxOccurs="1">
+          <xs:annotation>
+            <xs:appinfo>
+              <appSpecificNote>AlwaysPreferMerge</appSpecificNote>
+            </xs:appinfo>
+          </xs:annotation>
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="voice_type" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:attribute name="name" type="xs:string" use="required"/>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+          <!-- name attribute is unique for voice_type -->
+          <xs:unique name="voice_type_unique_attribute">
+            <xs:selector xpath="voice_type"/>
+            <xs:field xpath="@name"/>
+          </xs:unique>
+        </xs:element>
+        <xs:element name="voice_definition" minOccurs="0" maxOccurs="unbounded">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="voice" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:attribute name="type" type="xs:string" use="required"/>
+                  <xs:attribute name="path" type="xs:string" use="optional"/>
+                  <xs:attribute name="face_anim" type="xs:string" use="optional"/>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+            <xs:attribute name="name" type="xs:string" use="required"/>
+            <xs:attribute name="sound_and_collision_info_class" type="xs:string" use="optional"/>
+            <xs:attribute name="only_for_npcs" type="xs:boolean" use="optional"/>
+            <xs:attribute name="min_pitch_multiplier" type="xs:float" use="optional"/>
+            <xs:attribute name="max_pitch_multiplier" type="xs:float" use="optional"/>
+          </xs:complexType>
+          <!-- name attribute is unique for voice -->
+          <xs:unique name="voice_unique_attribute">
+            <xs:selector xpath="voice"/>
+            <xs:field xpath="@type"/>
+          </xs:unique>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+
+    <!-- name attribute is unique for voice_definition -->
+    <xs:unique name="voice_definition_unique_attribute">
+      <xs:selector xpath="voice_definition"/>
+      <xs:field xpath="@name"/>
+    </xs:unique>
+
+  </xs:element>
+</xs:schema>

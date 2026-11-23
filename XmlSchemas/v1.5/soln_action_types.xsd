@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" id="action_types" elementFormDefault="qualified">
+  <xs:element name="action_types">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="action" minOccurs="0" maxOccurs="unbounded">
+          <xs:complexType>
+            <xs:attribute name="name" type="xs:string" use="required"/>
+            <xs:attribute name="type" type="xs:string" use="optional"/>
+            <xs:attribute name="usage_direction" type="xs:string" use="optional"/>
+            <xs:attribute name="action_stage" type="xs:string" use="optional"/>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+
+    <!-- type attribute is unique for action -->
+    <xs:unique name="action_unique_attribute">
+      <xs:selector xpath="action"/>
+      <xs:field xpath="@name"/>
+    </xs:unique>
+
+  </xs:element>
+</xs:schema>

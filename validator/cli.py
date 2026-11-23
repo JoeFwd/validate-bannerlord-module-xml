@@ -22,7 +22,7 @@ _XSLT_PATH = Path(__file__).parent.parent / "XmlSchemas" / "expanded-api.xslt"
 _BUNDLED_XSD_ROOT = Path(__file__).parent.parent / "XmlSchemas"
 
 
-_SUPPORTED_VERSIONS = {"1.2", "1.3", "1.4"}
+_SUPPORTED_VERSIONS = {"1.2", "1.3", "1.4", "1.5"}
 
 
 def _resolve_bundled_xsd_dir(version: str) -> Path:
@@ -30,7 +30,7 @@ def _resolve_bundled_xsd_dir(version: str) -> Path:
     Resolve the bundled XSD directory for a given Bannerlord version string.
 
     Accepts a supported major/minor version with an optional ``v`` prefix and
-    patch component, for example ``1.4``, ``v1.4``, or ``v1.4.6``.
+    patch component, for example ``1.5``, ``v1.5``, or ``v1.5.7``.
     Raises ValueError if the version is not supported or the directory does not exist.
     """
     normalized_version = version.removeprefix("v")
@@ -65,17 +65,17 @@ Examples
   # Validate SubModule.xml only
   python -m validator \\
       --module ../DellarteDellaGuerraMap \\
-      --bannerlord-version 1.4
+      --bannerlord-version 1.5
 
   # Validate SubModule.xml + ModuleData/project.mbproj
   python -m validator \\
       --module ../DellarteDellaGuerraMap \\
-      --bannerlord-version 1.4 --mbproj
+      --bannerlord-version 1.5 --mbproj
 
   # Allow expanded equipment API attributes (siege/battle/pool)
   python -m validator \\
       --module ../DellarteDellaGuerraMap \\
-      --bannerlord-version 1.4 --bannerlord-xml-expanded-api
+      --bannerlord-version 1.5 --bannerlord-xml-expanded-api
         """,
     )
 
@@ -98,7 +98,7 @@ Examples
         required=True,
         metavar="VERSION",
         dest="bannerlord_version",
-        help="Target Bannerlord version. Accepted values: '1.2', '1.3', '1.4'.",
+        help="Target Bannerlord version. Accepted values: '1.2', '1.3', '1.4', '1.5'.",
     )
     parser.add_argument(
         "--json",

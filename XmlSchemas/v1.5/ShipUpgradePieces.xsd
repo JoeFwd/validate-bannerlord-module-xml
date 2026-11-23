@@ -1,0 +1,97 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<xs:schema xmlns=""
+  xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="ShipUpgradePieces">
+  <xs:element name="ShipUpgradePieces" msdata:IsDataSet="true">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="ShipUpgradePiece" maxOccurs="unbounded" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="TargetSlots" maxOccurs="1" minOccurs="0">
+                <xs:annotation>
+                  <xs:appinfo>
+                    <appSpecificNote>AlwaysPreferMerge</appSpecificNote>
+                  </xs:appinfo>
+                </xs:annotation>
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="ShipSlot" maxOccurs="unbounded" minOccurs="0">
+                      <xs:complexType>
+                        <xs:attribute type="xs:string" name="id" use="required"/>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+                <!-- id attribute is unique for ShipSlot -->
+                <xs:unique name="ShipSlot_unique_attribute">
+                  <xs:selector xpath="ShipSlot"/>
+                  <xs:field xpath="@id"/>
+                </xs:unique>
+              </xs:element>
+            </xs:sequence>
+            <xs:attribute type="xs:string" name="id" use="required"/>
+	    <xs:attribute type="xs:string" name="name" use="required"/>
+		<xs:attribute type="xs:string" name="description" use="required"/>
+            <xs:attribute type="xs:string" name="slot_prefab_child_id" use="optional"/>
+            <xs:attribute type="xs:boolean" name="not_merchandise" use="optional"/>
+            <xs:attribute type="xs:int" name="light_value" use="required"/>
+	    <xs:attribute type="xs:int" name="medium_value" use="required"/>
+	    <xs:attribute type="xs:int" name="heavy_value" use="required"/>
+            <xs:attribute type="xs:int" name="required_port_level" use="optional"/>
+			
+			<xs:attribute type="xs:float" name="crew_capacity_bonus_multiplier" use="optional" />
+			<xs:attribute type="xs:float" name="ship_weight_bonus_multiplier" use="optional" />
+			<xs:attribute type="xs:float" name="combat_factor_bonus_multiplier" use="optional" />
+			<xs:attribute type="xs:float" name="decrease_forward_drag_multiplier" use="optional" />
+			<xs:attribute type="xs:float" name="campaign_speed_bonus_multiplier" use="optional" />
+			<xs:attribute type="xs:float" name="max_hit_points_bonus_multiplier" use="optional" />
+			<xs:attribute type="xs:int" name="sea_worthiness_bonus" use="optional" />
+			<xs:attribute type="xs:float" name="crew_shield_hit_points_bonus_multiplier" use="optional" />
+			<xs:attribute type="xs:float" name="inventory_capacity_bonus_multiplier" use="optional" />
+			<xs:attribute type="xs:int" name="additional_ammo_bonus" use="optional" />
+			<xs:attribute type="xs:float" name="max_oar_power_bonus_multiplier" use="optional" />
+			<xs:attribute type="xs:float" name="max_oar_force_bonus_multiplier" use="optional" />
+			<xs:attribute type="xs:float" name="sail_force_bonus_multiplier" use="optional" />
+			<xs:attribute type="xs:float" name="crew_melee_damage_bonus_multiplier" use="optional" />
+			<xs:attribute type="xs:int" name="archer_quiver_bonus" use="optional" />
+			<xs:attribute type="xs:int" name="throwing_weapon_stack_bonus" use="optional" />
+			<xs:attribute type="xs:float" name="sail_rotation_speed_bonus_multiplier" use="optional" />
+			<xs:attribute type="xs:float" name="furl_unfurl_speed_bonus_multipler" use="optional" />
+			<xs:attribute type="xs:float" name="rudder_surface_area_bonus_multiplier" use="optional" />
+			<xs:attribute type="xs:float" name="max_rudder_force_bonus_multiplier" use="optional" />
+			
+            <xs:attribute name="required_culture_1_id" use="optional">
+              <xs:simpleType>
+                <xs:restriction base="xs:string">
+                  <xs:pattern value="Culture\..+"/>
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="required_culture_2_id" use="optional">
+              <xs:simpleType>
+                <xs:restriction base="xs:string">
+                  <xs:pattern value="Culture\..+"/>
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:attribute>
+						 <xs:attribute name="siege_engine" use="optional">
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+								<xs:pattern value="SiegeEngineType\..+"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:attribute>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+
+    <!-- id attribute is unique for ShipUpgradePiece -->
+    <xs:unique name="ShipUpgradePiece_unique_attribute">
+      <xs:selector xpath="ShipUpgradePiece"/>
+      <xs:field xpath="@id"/>
+    </xs:unique>
+
+  </xs:element>
+</xs:schema>
