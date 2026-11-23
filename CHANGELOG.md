@@ -2,6 +2,14 @@
 
 <!-- version list -->
 
+## v1.2.0 (2026-11-23)
+
+### Features
+
+- Add Bannerlord v1.5 XML schemas
+  ([`d0fccee`](https://github.com/JoeFwd/validate-bannerlord-module-xml/commit/d0fccee72908ce106dc882af29923f1612d76ba3))
+
+
 ## v1.1.1 (2026-09-19)
 
 
